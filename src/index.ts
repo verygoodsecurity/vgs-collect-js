@@ -1,18 +1,19 @@
 import loadScript from './helpers/loadScript';
 import initCollect from './helpers/initCollect';
-
-const validTenantId = (tenantId: string): boolean => {
-    return tenantId.includes('tnt');
-};
+import validateArguments from './helpers/validateArguments';
 
 export const loadVGSCollect = (tenantId: string, environment: string = 'sandbox') => {
-  if (!validTenantId(tenantId)) {
+    if (!tenantId) {
+        throw new Error('tenantId is required: loadVGSCollect(tenantId, environment)');
+    }
+
+  if (!validateArguments(tenantId, environment)) {
       throw new Error('Please specify correct tenantId and environment!');
   }
 
   const resolvePromise = (resolve: (VGSCollect: any) => void) => {
-    initCollect(tenantId, environment);
-    resolve(window.VGSCollect);
+      initCollect(tenantId, environment);
+      resolve(window.VGSCollect);
   };
 
   return new Promise((resolve, reject) => {
@@ -25,7 +26,7 @@ export const loadVGSCollect = (tenantId: string, environment: string = 'sandbox'
           resolvePromise(resolve);
       }
 
-      const script = loadScript(tenantId);
+      const script = loadScript(tenantId, environment);
 
       if (script) {
           script.onload = () => {

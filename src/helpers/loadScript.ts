@@ -12,9 +12,9 @@ const findScript = () => {
     }
 };
 
-const appendScript = (tenantId: string) => {
+const appendScript = ([tenantId, environment]: string[]): HTMLScriptElement => {
     const script = document.createElement('script');
-    script.src = `${SCRIPT_URL}?traceId=${uuidv4()}&tenantId=${tenantId}`;
+    script.src = `${SCRIPT_URL}?traceId=${uuidv4()}&tenantId=${tenantId}&env=${environment}`;
     const target = document.head || document.body;
 
     if (!target) {
@@ -25,8 +25,8 @@ const appendScript = (tenantId: string) => {
     return script;
 };
 
-const loadScript = (tenantId: string) => {
-    return findScript() || appendScript(tenantId);
+const loadScript = (...args: string[]): HTMLScriptElement => {
+    return findScript() || appendScript(args);
 };
 
 export default loadScript;

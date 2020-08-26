@@ -1,3 +1,5 @@
+///<reference path='collect.d.ts' />
+
 declare module 'vgs-collect-js' {
     const loadVGSCollect: (
         tenantId: string,
@@ -10,5 +12,5 @@ declare module 'uuid' {
 }
 
 interface Window {
-    VGSCollect: any
+    VGSCollect: IVGSCollectGlobal
 }
