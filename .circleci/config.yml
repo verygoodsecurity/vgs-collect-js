@@ -35,10 +35,13 @@ jobs:
           at: ~/vgs-collect-js
       - run:
           name: Authenticate with NPM
-          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/vgs-collect-js/.npmrc
+          command: |
+            echo "registry=https://npm-proxy.fury.io/vgs/" >> ~/vgs-collect-js/.npmrc
+            echo "//npm-proxy.fury.io/vgs/:_authToken=$GEMFURY_PYPI_PUSH_TOKEN" >> ~/vgs-collect-js/.npmrc
+            npm ci
       - run:
           name: Publish package
-          command: npm publish --access public
+          command: npm publish
 
 workflows:
   version: 2
@@ -51,6 +54,7 @@ workflows:
       - publish:
           requires:
             - build
+          context: private-pypi
           filters:
             branches:
               ignore: /.*/

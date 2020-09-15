@@ -1,14 +1,10 @@
-///<reference path='collect.d.ts' />
+/// <reference path='collect.d.ts' />
 
-declare module 'vgs-collect-js' {
+declare module 'vgs-collect-js-test' {
     const loadVGSCollect: (
         tenantId: string,
         environment: string
     ) => Promise<null>;
-}
-
-declare module 'uuid' {
-    export function v4(): number
 }
 
 interface Window {
