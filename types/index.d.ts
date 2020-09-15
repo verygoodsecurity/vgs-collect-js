@@ -1,6 +1,6 @@
 /// <reference path='collect.d.ts' />
 
-declare module 'vgs-collect-js-test' {
+declare module 'vgs-collect-js' {
     const loadVGSCollect: (
         tenantId: string,
         environment: string
