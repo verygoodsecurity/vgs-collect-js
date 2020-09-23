@@ -18,7 +18,11 @@ VGSCollect instance as the result of resolved Promise.
 ```javascript
 import { loadVGSCollect } from '@vgs/vgs-collect-js';
 
-const VGSCollectInstance = await loadVGSCollect('<TENANT_ID>', '<ENVIRONMENT>');
+const VGSCollectInstance = await loadVGSCollect({
+  tenantId: '<tenant_id>',
+  environment: '<sandbox | live | live-eu>',
+  varsion: '2.0' // optional. By default - 2.0.
+});
 const VGSCollectForm = VGSCollectInstance.init(state => { console.log(state); });
 
 

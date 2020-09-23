@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:10.15
+      - image: circleci/node:latest
 
     working_directory: ~/vgs-collect-js
 
@@ -47,10 +47,7 @@ workflows:
   version: 2
   build-and-publish:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /.*/
+      - build
       - publish:
           requires:
             - build

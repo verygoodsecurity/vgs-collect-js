@@ -1,30 +1,38 @@
-import { v4 as uuidv4 } from 'uuid';
-import trackEvent, { ANALYTICS_EVENTS } from './logEvents';
+import trackEvent, { ANALYTICS_EVENTS } from './trackEvent';
+import {
+  config,
+  setConfig,
+  TRACE_ID,
+  MAIN_SCRIPT_DOMAIN,
+  BACKUP_SCRIPT_DOMAIN,
+} from './globals';
 
-const VERSION: string = '2.0';
-const MAIN_SCRIPT_URL: string = `https://js.verygoodvault.com/vgs-collect/${VERSION}/vgs-collect.js`;
-const BACKUP_SCRIPT_URL: string = `https://js3.verygoodvault.com/vgs-collect/${VERSION}/vgs-collect.js`;
-const TRACE_ID = uuidv4();
+let script_url = MAIN_SCRIPT_DOMAIN;
 
-let SCRIPT_URL = MAIN_SCRIPT_URL;
+export const registerScriptLoading = (params: IConfig) => {
+  setConfig(params);
+  trackEvent({
+    type: ANALYTICS_EVENTS.LOADED_FROM_PACKAGE,
+  });
+};
 
-const scriptExists = () => {
+export const scriptExists = () => {
   try {
     const scripts = document.querySelectorAll<HTMLScriptElement>(
-      `script[src^="${SCRIPT_URL}"]`
+      `script[src^="${script_url}"]`
     );
-    return scripts.length > 0 ? scripts[scripts.length - 1] : false;
+    return scripts.length > 0;
   } catch (e) {
     return false;
   }
 };
 
-const appendScript = (
+export const appendScript = (
   tenantId: string,
   environment: string
 ): HTMLScriptElement => {
   const script = document.createElement('script');
-  script.src = `${SCRIPT_URL}?traceId=${TRACE_ID}&tenantId=${tenantId}&env=${environment}`;
+  script.src = `${script_url}/vgs-collect/${config.version}/vgs-collect.js?traceId=${TRACE_ID}&tenantId=${tenantId}&env=${environment}`;
   const target = document.head || document.body;
 
   if (!target) {
@@ -35,16 +43,18 @@ const appendScript = (
   return script;
 };
 
-const loadScript = (tnt: string, env: string, loadMainCDN: boolean = true) => {
+export const loadScript = (loadMainCDN: boolean = true) => {
+  const { tenantId, environment } = config;
+
   const collectPromise = new Promise((resolve, reject) => {
-    SCRIPT_URL = loadMainCDN ? SCRIPT_URL : BACKUP_SCRIPT_URL;
+    script_url = loadMainCDN ? script_url : BACKUP_SCRIPT_DOMAIN;
 
     if (scriptExists() && window.VGSCollect) {
       resolve(window.VGSCollect);
     }
 
     if (!window.VGSCollect) {
-      const script = appendScript(tnt, env);
+      const script = appendScript(tenantId, environment);
       if (script) {
         script.onload = () => {
           if (!window.VGSCollect) {
@@ -71,7 +81,7 @@ const loadScript = (tnt: string, env: string, loadMainCDN: boolean = true) => {
           });
           if (loadMainCDN) {
             // load script from backup CDN
-            resolve(loadScript(tnt, env, false));
+            resolve(loadScript(false));
           } else {
             reject(`Error occurred while loading VGS Collect.js script.`);
           }
@@ -81,5 +91,3 @@ const loadScript = (tnt: string, env: string, loadMainCDN: boolean = true) => {
   });
   return collectPromise;
 };
-
-export default loadScript;

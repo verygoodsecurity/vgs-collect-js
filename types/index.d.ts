@@ -1,10 +1,13 @@
 /// <reference path='collect.d.ts' />
 
 declare module 'vgs-collect-js' {
-    const loadVGSCollect: (
-        tenantId: string,
-        environment: string
-    ) => Promise<null>;
+  const loadVGSCollect: (config: IConfig) => Promise<null>;
+}
+
+interface IConfig {
+  tenantId: string,
+  environment: string,
+  version?: string,
 }
 
 interface Window {

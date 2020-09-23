@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { config, TRACE_ID } from './globals';
 
 export const ANALYTICS_EVENTS = {
-  // load from npm module registered
+  // Script loaded from npm module
   LOADED_FROM_PACKAGE: 'LoadedFromPackage',
   // Script loaded
   SCRIPT_LOADING: 'ScriptLoading',
@@ -9,25 +10,17 @@ export const ANALYTICS_EVENTS = {
   INSTANCE_UNDEFINED: 'InstanceUndefined',
 };
 
-let TENANT_ID = 'unknown';
-let ENVIRONMENT = 'sandbox';
-
-export const registerScriptLoading = (tenantId: string, env: string) => {
-  TENANT_ID = tenantId;
-  ENVIRONMENT = env;
-  trackEvent({
-    type: ANALYTICS_EVENTS.LOADED_FROM_PACKAGE,
-  });
-};
-
 export const trackEvent = (event: any) => {
+  const { tenantId, environment, version } = config;
   let payload = '';
 
   const data = {
-    env: ENVIRONMENT,
-    tnt: TENANT_ID,
-    version: '2.0',
+    env: environment,
+    tnt: tenantId,
     userAgent: window.navigator.userAgent,
+    version,
+    timestamp: Date.now(),
+    vgsCollectSessionId: TRACE_ID,
   };
 
   try {

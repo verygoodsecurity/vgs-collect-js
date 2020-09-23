@@ -1,22 +1,10 @@
-import loadScript from './helpers/loadScript';
+import { loadScript, registerScriptLoading } from './helpers/loadScript';
 import initCollect from './helpers/initCollect';
 import validateArguments from './helpers/validateArguments';
-import { registerScriptLoading } from './helpers/logEvents';
 
-export const loadVGSCollect = (
-  tenantId: string,
-  environment: string = 'sandbox'
-) => {
-  registerScriptLoading(tenantId, environment);
-  if (!tenantId) {
-    throw new Error(
-      'tenantId is required: loadVGSCollect(tenantId, environment)'
-    );
-  }
-
-  if (!validateArguments(tenantId, environment)) {
-    throw new Error('Please specify correct tenantId and environment!');
-  }
+export const loadVGSCollect = ({tenantId, environment = 'sandbox', version = '2.0'}: IConfig) => {
+  validateArguments(tenantId, environment, version);
+  registerScriptLoading({ tenantId, environment, version });
 
   return new Promise((resolve, reject) => {
     if (typeof window === undefined) {
@@ -29,7 +17,7 @@ export const loadVGSCollect = (
       resolve(window.VGSCollect);
     }
 
-    loadScript(tenantId, environment)
+    loadScript()
       .then(() => {
         initCollect(tenantId, environment);
         resolve(window.VGSCollect);
