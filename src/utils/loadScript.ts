@@ -1,20 +1,12 @@
 import trackEvent, { ANALYTICS_EVENTS } from './trackEvent';
+import { config } from './setConfig';  
 import {
-  config,
-  setConfig,
   TRACE_ID,
   MAIN_SCRIPT_DOMAIN,
   BACKUP_SCRIPT_DOMAIN,
-} from './globals';
+} from '../constants/index';
 
 let script_url = MAIN_SCRIPT_DOMAIN;
-
-export const registerScriptLoading = (params: IConfig) => {
-  setConfig(params);
-  trackEvent({
-    type: ANALYTICS_EVENTS.LOADED_FROM_PACKAGE,
-  });
-};
 
 export const scriptExists = () => {
   try {
@@ -66,7 +58,7 @@ export const loadScript = (loadMainCDN: boolean = true) => {
             reject('VGS Collect is undefined.');
           }
           trackEvent({
-            type: ANALYTICS_EVENTS.SCRIPT_LOADING,
+            type: ANALYTICS_EVENTS.SCRIPT_LOAD,
             status: 'OK',
             mainCDN: loadMainCDN,
           });
@@ -75,7 +67,7 @@ export const loadScript = (loadMainCDN: boolean = true) => {
 
         script.onerror = () => {
           trackEvent({
-            type: ANALYTICS_EVENTS.SCRIPT_LOADING,
+            type: ANALYTICS_EVENTS.SCRIPT_LOAD,
             status: 'Failed',
             mainCDN: loadMainCDN,
           });

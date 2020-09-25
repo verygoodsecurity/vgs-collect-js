@@ -1,8 +1,13 @@
-import { loadScript, registerScriptLoading } from './helpers/loadScript';
-import initCollect from './helpers/initCollect';
-import validateArguments from './helpers/validateArguments';
+import { loadScript } from './utils/loadScript';
+import { registerScriptLoading } from './utils/setConfig';
+import initCollect from './utils/initCollect';
+import validateArguments from './utils/validateArguments';
 
-export const loadVGSCollect = ({tenantId, environment = 'sandbox', version = '2.0'}: IConfig) => {
+export const loadVGSCollect = ({
+  tenantId,
+  environment = 'sandbox',
+  version = '2.0',
+}: IConfig) => {
   validateArguments(tenantId, environment, version);
   registerScriptLoading({ tenantId, environment, version });
 

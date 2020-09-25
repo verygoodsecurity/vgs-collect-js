@@ -1,4 +1,4 @@
-import validateArguments from '../src/helpers/validateArguments';
+import validateArguments from '../src/utils/validateArguments';
 
 const VALID_VALUES = [
   ['tnt12345678', 'sandbox', '2'],
