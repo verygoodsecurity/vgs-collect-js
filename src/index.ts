@@ -1,15 +1,29 @@
 import { loadScript } from './utils/loadScript';
-import { registerScriptLoading } from './utils/setConfig';
-import initCollect from './utils/initCollect';
-import validateArguments from './utils/validateArguments';
+import { registerScriptLoading } from './utils/trackEvent';
+import { initCollect } from './utils/initCollect';
+import { validateArguments, isRequired } from './utils/validation';
+
+import { preFetch } from './sideEffects/preFetch';
+import { preConnect } from './sideEffects/preConnect';
+
+Promise.resolve().then(() => {
+  if (!window.VGSCollect) {
+    // DNS lookup
+    preFetch();
+    // Establish connection to the server
+    preConnect();
+  }
+});
 
 export const loadVGSCollect = ({
-  tenantId,
+  vaultId = isRequired('vaultId'),
   environment = 'sandbox',
   version = '2.0',
 }: IConfig) => {
-  validateArguments(tenantId, environment, version);
-  registerScriptLoading({ tenantId, environment, version });
+  const config = { vaultId, environment, version };
+
+  validateArguments(config);
+  registerScriptLoading(config);
 
   return new Promise((resolve, reject) => {
     if (typeof window === undefined) {
@@ -18,13 +32,13 @@ export const loadVGSCollect = ({
     }
 
     if (window.VGSCollect) {
-      initCollect(tenantId, environment);
+      initCollect(vaultId, environment);
       resolve(window.VGSCollect);
     }
 
     loadScript()
       .then(() => {
-        initCollect(tenantId, environment);
+        initCollect(vaultId, environment);
         resolve(window.VGSCollect);
       })
       .catch(e => {

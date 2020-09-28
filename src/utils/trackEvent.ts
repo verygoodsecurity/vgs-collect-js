@@ -1,27 +1,29 @@
 import axios from 'axios';
-import { TRACE_ID } from '../constants/index';
-import { config } from './setConfig';
+import {
+  SESSION_ID,
+  ANALYTICS_EVENTS,
+  VGS_COLLECT_KEEPER,
+} from '../constants/index';
+import { config, setConfig } from './setConfig';
 
-export const ANALYTICS_EVENTS = {
-  // Script loaded from npm module
-  LOADED_FROM_PACKAGE: 'LoadedFromPackage',
-  // Script loaded
-  SCRIPT_LOAD: 'ScriptLoad',
-  // VGSCollect instance is undefined
-  INSTANCE_UNDEFINED: 'InstanceUndefined',
+const registerScriptLoading = (params: IConfig) => {
+  setConfig(params);
+  trackEvent({
+    type: ANALYTICS_EVENTS.LOADED_FROM_PACKAGE,
+  });
 };
 
-export const trackEvent = (event: any) => {
-  const { tenantId, environment, version } = config;
+const trackEvent = (event: any) => {
+  const { vaultId, environment, version } = config;
   let payload = '';
 
   const data = {
     env: environment,
-    tnt: tenantId,
+    tnt: vaultId,
     userAgent: window.navigator.userAgent,
     version,
     timestamp: Date.now(),
-    vgsCollectSessionId: TRACE_ID,
+    vgsCollectSessionId: SESSION_ID,
   };
 
   try {
@@ -32,7 +34,7 @@ export const trackEvent = (event: any) => {
 
   axios({
     method: 'POST',
-    url: 'https://vgs-collect-keeper.apps.verygood.systems/vgs',
+    url: `${VGS_COLLECT_KEEPER}/vgs`,
     data: payload,
   })
     .then(() => {
@@ -43,4 +45,4 @@ export const trackEvent = (event: any) => {
     });
 };
 
-export default trackEvent;
+export { trackEvent, registerScriptLoading };

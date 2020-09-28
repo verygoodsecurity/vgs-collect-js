@@ -1,4 +1,4 @@
-import validateArguments from '../src/utils/validateArguments';
+import { validateArguments } from '../src/utils/validation';
 
 const VALID_VALUES = [
   ['tnt12345678', 'sandbox', '2'],
@@ -20,15 +20,19 @@ const INVALID_VALUES = [
 describe('validateArguments()', () => {
   test.each(VALID_VALUES)(
     'test with valid values: %s, %s',
-    (tenant, env, version) => {
-      expect(() => validateArguments(tenant, env, version)).not.toThrow();
+    (vaultId, environment, version) => {
+      expect(() =>
+        validateArguments({ vaultId, environment, version })
+      ).not.toThrow();
     }
   );
 
   test.each(INVALID_VALUES)(
     'test with invalid values: %s, %s',
-    (tenant, env, version) => {
-      expect(() => validateArguments(tenant, env, version)).toThrow();
+    (vaultId, environment, version) => {
+      expect(() =>
+        validateArguments({ vaultId, environment, version })
+      ).toThrow();
     }
   );
 });

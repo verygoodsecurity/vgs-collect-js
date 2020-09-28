@@ -5,9 +5,14 @@ declare module 'vgs-collect-js' {
 }
 
 interface IConfig {
-  tenantId: string,
+  vaultId: string,
   environment: string,
-  version?: string,
+  version: string,
+  [index: string]: string
+}
+
+interface IConfigSchema {
+  [key: string]: (value: string) => boolean; 
 }
 
 interface Window {

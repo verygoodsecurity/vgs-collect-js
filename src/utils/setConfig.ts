@@ -1,14 +1,13 @@
-import trackEvent, { ANALYTICS_EVENTS } from './trackEvent';
-
-export let config: IConfig = {
-  tenantId: '',
-  environment: '',
-  version: '',
+let config: IConfig = {
+  vaultId: '',
+  environment: 'sandbox',
+  version: '2.0',
 };
 
-export const registerScriptLoading = (params: IConfig) => {
-  config = { ...params };
-  trackEvent({
-    type: ANALYTICS_EVENTS.LOADED_FROM_PACKAGE,
-  });
+const setConfig = (params: IConfig) => {
+  if (params) {
+    config = { ...params };
+  }
 };
+
+export { config, setConfig };

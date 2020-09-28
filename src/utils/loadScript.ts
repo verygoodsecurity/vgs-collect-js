@@ -1,17 +1,19 @@
-import trackEvent, { ANALYTICS_EVENTS } from './trackEvent';
-import { config } from './setConfig';  
+import { trackEvent } from './trackEvent';
+import { config } from './setConfig';
 import {
-  TRACE_ID,
+  SESSION_ID,
   MAIN_SCRIPT_DOMAIN,
   BACKUP_SCRIPT_DOMAIN,
+  ANALYTICS_EVENTS,
 } from '../constants/index';
+import { appendElement } from './appendElement';
 
-let script_url = MAIN_SCRIPT_DOMAIN;
+let scriptURL = MAIN_SCRIPT_DOMAIN;
 
-export const scriptExists = () => {
+const scriptExists = () => {
   try {
     const scripts = document.querySelectorAll<HTMLScriptElement>(
-      `script[src^="${script_url}"]`
+      `script[src^="${scriptURL}"]`
     );
     return scripts.length > 0;
   } catch (e) {
@@ -19,34 +21,26 @@ export const scriptExists = () => {
   }
 };
 
-export const appendScript = (
-  tenantId: string,
-  environment: string
-): HTMLScriptElement => {
+const appendScript = (): HTMLScriptElement => {
+  const { vaultId, environment, version } = config;
   const script = document.createElement('script');
-  script.src = `${script_url}/vgs-collect/${config.version}/vgs-collect.js?traceId=${TRACE_ID}&tenantId=${tenantId}&env=${environment}`;
-  const target = document.head || document.body;
 
-  if (!target) {
-    throw new Error('Unable to find document.head or document.body');
-  }
+  script.src = `${scriptURL}/vgs-collect/${version}/vgs-collect.js?traceId=${SESSION_ID}&tenantId=${vaultId}&env=${environment}`;
+  appendElement(script);
 
-  target.append(script);
   return script;
 };
 
-export const loadScript = (loadMainCDN: boolean = true) => {
-  const { tenantId, environment } = config;
-
+const loadScript = (loadMainCDN: boolean = true) => {
   const collectPromise = new Promise((resolve, reject) => {
-    script_url = loadMainCDN ? script_url : BACKUP_SCRIPT_DOMAIN;
+    scriptURL = loadMainCDN ? scriptURL : BACKUP_SCRIPT_DOMAIN;
 
     if (scriptExists() && window.VGSCollect) {
       resolve(window.VGSCollect);
     }
 
     if (!window.VGSCollect) {
-      const script = appendScript(tenantId, environment);
+      const script = appendScript();
       if (script) {
         script.onload = () => {
           if (!window.VGSCollect) {
@@ -72,7 +66,7 @@ export const loadScript = (loadMainCDN: boolean = true) => {
             mainCDN: loadMainCDN,
           });
           if (loadMainCDN) {
-            // load script from backup CDN
+            // Load script from backup CDN
             resolve(loadScript(false));
           } else {
             reject(`Error occurred while loading VGS Collect.js script.`);
@@ -83,3 +77,5 @@ export const loadScript = (loadMainCDN: boolean = true) => {
   });
   return collectPromise;
 };
+
+export { loadScript, appendScript, scriptExists };
