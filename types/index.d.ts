@@ -1,6 +1,6 @@
 /// <reference path='collect.d.ts' />
 
-declare module 'vgs-collect-js' {
+declare module 'collect-js' {
   const loadVGSCollect: (config: IConfig) => Promise<null>;
 }
 

@@ -1,7 +1,8 @@
 import { loadScript } from './utils/loadScript';
 import { registerScriptLoading } from './utils/trackEvent';
 import { initCollect } from './utils/initCollect';
-import { validateArguments, isRequired } from './utils/validation';
+import { isRequired } from './utils/validation';
+import { VERSION } from './constants/index';
 
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
@@ -15,15 +16,14 @@ Promise.resolve().then(() => {
   }
 });
 
-export const loadVGSCollect = ({
-  vaultId = isRequired('vaultId'),
-  environment = 'sandbox',
-  version = '2.0',
-}: IConfig) => {
-  const config = { vaultId, environment, version };
+export const loadVGSCollect = (config: IConfig = isRequired('config')) => {
+  const {
+    vaultId = isRequired('vaultId'),
+    environment = 'sandbox',
+    version = VERSION,
+  } = config;
 
-  validateArguments(config);
-  registerScriptLoading(config);
+  registerScriptLoading({ vaultId, environment, version });
 
   return new Promise((resolve, reject) => {
     if (typeof window === undefined) {
@@ -43,6 +43,7 @@ export const loadVGSCollect = ({
       })
       .catch(e => {
         reject(e);
+        return;
       });
   });
 };

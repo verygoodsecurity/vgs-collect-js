@@ -5,8 +5,10 @@ import {
   VGS_COLLECT_KEEPER,
 } from '../constants/index';
 import { config, setConfig } from './setConfig';
+import { validateArguments } from './validation';
 
 const registerScriptLoading = (params: IConfig) => {
+  validateArguments(params);
   setConfig(params);
   trackEvent({
     type: ANALYTICS_EVENTS.LOADED_FROM_PACKAGE,

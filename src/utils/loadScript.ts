@@ -13,7 +13,7 @@ let scriptURL = MAIN_SCRIPT_DOMAIN;
 const scriptExists = () => {
   try {
     const scripts = document.querySelectorAll<HTMLScriptElement>(
-      `script[src^="${scriptURL}"]`
+      `script[src^="${scriptURL}/vgs-collect/"]`
     );
     return scripts.length > 0;
   } catch (e) {
@@ -69,7 +69,7 @@ const loadScript = (loadMainCDN: boolean = true) => {
             // Load script from backup CDN
             resolve(loadScript(false));
           } else {
-            reject(`Error occurred while loading VGS Collect.js script.`);
+            reject(`VGS Collect.js script was not loaded.`);
           }
         };
       }

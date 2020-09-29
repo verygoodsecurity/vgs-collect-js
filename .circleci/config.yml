@@ -1,57 +1,39 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@4.0.1
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:latest
-
-    working_directory: ~/vgs-collect-js
-
+  test:
+    executor: node/default
     steps:
       - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
       - run: npm run test
 
   publish:
-    docker:
-      - image: circleci/node:latest
-
-    working_directory: ~/vgs-collect-js
-
+    executor: node/default
     steps:
-      - attach_workspace:
-          at: ~/vgs-collect-js
       - run:
           name: Authenticate with NPM
           command: |
-            echo "registry=https://npm-proxy.fury.io/vgs/" >> ~/vgs-collect-js/.npmrc
-            echo "//npm-proxy.fury.io/vgs/:_authToken=$GEMFURY_PYPI_PUSH_TOKEN" >> ~/vgs-collect-js/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_VGS_PUBLISH_TOKEN" >> ~/project/.npmrc
             npm ci
       - run:
           name: Publish package
-          command: npm publish
+          command: npm publish --access public
 
 workflows:
   version: 2
-  build-and-publish:
+  test-and-publish:
     jobs:
-      - build
+      - test
       - publish:
+          context: frontend-deploy
           requires:
-            - build
-          context: private-pypi
+            - test
           filters:
             branches:
               ignore: /.*/
