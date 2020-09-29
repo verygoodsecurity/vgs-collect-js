@@ -1,14 +1,18 @@
 {
+  "include": ["src", "types"],
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "allowJs":  false,
-    "declaration": false,
-    "outDir": "./dist",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "importHelpers": true,
+    "declaration": true,
+    "sourceMap": true,
     "rootDir": "./src",
     "strict": true,
-    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
     "esModuleInterop": true
   }
 }

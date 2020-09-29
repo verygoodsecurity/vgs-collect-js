@@ -1,45 +1,48 @@
-import loadScript from './helpers/loadScript';
-import initCollect from './helpers/initCollect';
-import validateArguments from './helpers/validateArguments';
+import { loadScript } from './utils/loadScript';
+import { registerScriptLoading } from './utils/trackEvent';
+import { initCollect } from './utils/initCollect';
+import { validateArguments, isRequired } from './utils/validation';
 
-export const loadVGSCollect = (tenantId: string, environment: string = 'sandbox') => {
-    if (!tenantId) {
-        throw new Error('tenantId is required: loadVGSCollect(tenantId, environment)');
-    }
+import { preFetch } from './sideEffects/preFetch';
+import { preConnect } from './sideEffects/preConnect';
 
-  if (!validateArguments(tenantId, environment)) {
-      throw new Error('Please specify correct tenantId and environment!');
+Promise.resolve().then(() => {
+  if (!window.VGSCollect) {
+    // DNS lookup
+    preFetch();
+    // Establish connection to the server
+    preConnect();
   }
+});
 
-  const resolvePromise = (resolve: (VGSCollect: any) => void) => {
-      initCollect(tenantId, environment);
-      resolve(window.VGSCollect);
-  };
+export const loadVGSCollect = ({
+  vaultId = isRequired('vaultId'),
+  environment = 'sandbox',
+  version = '2.0',
+}: IConfig) => {
+  const config = { vaultId, environment, version };
+
+  validateArguments(config);
+  registerScriptLoading(config);
 
   return new Promise((resolve, reject) => {
-      if (typeof window === undefined) {
-          reject(null);
-          return;
-      }
+    if (typeof window === undefined) {
+      reject(null);
+      return;
+    }
 
-      if (window.VGSCollect) {
-          resolvePromise(resolve);
-      }
+    if (window.VGSCollect) {
+      initCollect(vaultId, environment);
+      resolve(window.VGSCollect);
+    }
 
-      const script = loadScript(tenantId, environment);
-
-      if (script) {
-          script.onload = () => {
-            if (!window.VGSCollect) {
-                reject('VGS Collect is undefined.');
-            }
-
-            resolvePromise(resolve);
-          };
-
-          script.onerror = () => {
-            reject(`Error occurred while loading VGS Collect.js script.`);
-          };
-      }
+    loadScript()
+      .then(() => {
+        initCollect(vaultId, environment);
+        resolve(window.VGSCollect);
+      })
+      .catch(e => {
+        reject(e);
+      });
   });
 };
