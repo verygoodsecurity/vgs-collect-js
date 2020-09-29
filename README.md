@@ -36,7 +36,7 @@ This module intended to simplify [VGS Collect.js](https://www.verygoodsecurity.c
 Install the package using `npm`:
 
 ```
-npm install @vgs/vgs-collect-js
+npm install @vgs/collect-js
 ```
 
 ## How to use
@@ -44,12 +44,14 @@ npm install @vgs/vgs-collect-js
 The imported function inserts the `<script>` tag to the document head or body and returns the VGSCollect instance as the result of resolved Promise. The script won't be loaded until `loadVGSCollect()` invoked. In order to speed up cross-domain loading, `dns-prefetch` and `preconnect` were added as a side effect.
 
 ```javascript 
-import { loadVGSCollect } from '@vgs/vgs-collect-js';
+import { loadVGSCollect } from '@vgs/collect-js';
 
 const VGSCollectInstance = await loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: 'sandbox',
   varsion: '2.0'
+}).catch((e) => {
+  // script was not loaded
 });
 
 const VGSCollectForm = VGSCollectInstance.init(state => { console.log(state); });
