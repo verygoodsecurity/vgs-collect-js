@@ -19,13 +19,16 @@
 * [Overview](#overview)
 * [Installation](#installation)
 * [How to use](#how-to-use)
+* [Documentation](#documentation)
 * [Contributing](#contributing)
 * [Built With](#built-with)
 * [Contact](#contact)
 
 ## Overview
 
-This module intended to simplify [VGS Collect.js](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview) script loading process. You can still use the conventional way and just stick a reference to the script in the HEAD section of your page but you may lose some benefitial advantages package provides:
+[VGS Collect.js](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview) is a JavaScript library that allows you to securely collect data via any form. Instantly create custom forms that adhere to PCI, HIPAA, GDPR, or CCPA security requirements. [VGS](https://www.verygoodsecurity.com/) intercepts sensitive data before it hits your servers and replaces it with aliased versions while securing the original data in our vault. The form fields behave like traditional forms while preventing access to the unsecured data by injecting secure iframe components.
+
+This module intended to simplify [VGS Collect.js](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview) script loading process. You can still use the conventional way and just stick a reference to the script in the HEAD section of your page but you may lose some beneficial advantages the package provides:
 
 - Error handling
 - Fallback CDN managing
@@ -41,24 +44,30 @@ npm install @vgs/collect-js
 
 ## How to use
 
-The imported function inserts the `<script>` tag to the document head or body and returns the VGSCollect instance as the result of resolved Promise. The script won't be loaded until `loadVGSCollect()` invoked. In order to speed up cross-domain loading, `dns-prefetch` and `preconnect` were added as a side effect.
+The imported function inserts the `<script>` tag to the document head or body and returns the `VGSCollect` instance as the result of resolved Promise. The script won't be loaded until `loadVGSCollect()` invoked. In order to speed up cross-domain loading, `dns-prefetch` and `preconnect` were added as a side effect.
 
 ```javascript 
 import { loadVGSCollect } from '@vgs/collect-js';
 
+// load script
 const VGSCollectInstance = await loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: 'sandbox',
-  varsion: '2.0'
+  version: '2.0'
 }).catch((e) => {
   // script was not loaded
 });
 
+// https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-state
 const VGSCollectForm = VGSCollectInstance.init(state => { console.log(state); });
 
+// https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#create-and-setup-form-fields
 VGSCollectForm.field({...});
 VGSCollectForm.field({...});
 VGSCollectForm.field({...});
+
+// https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#setup-form-submission
+VGSCollectForm.submit(...);
 ```
 
 ### loadVGSCollect(config)
@@ -77,16 +86,18 @@ A wrapper over original [`.create()`](https://www.verygoodsecurity.com/docs/vgs-
 
 ```javascript
 VGSCollect.init(state => { console.log(state); });
-// or
-VGSCollect.create('<vault_id', 'sandbox', (state) => { console.log(state); })
 ```
+
+## Documentation
+
+Full abilities of VGS Collect.js and integration details you can find in our [documentation](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration).
 
 ## Contributing 
 
 1. Fork the project
 2. Create your feature branch (`git checkout -b feaure/my-amazing-feature`)
 3. Commit your changes (`git commit -m 'feature: added amazing feature'`)
-4. Push to the branch (`git push origin feaure/my-amazing-feature`)
+4. Push to the branch (`git push origin feature/my-amazing-feature`)
 5. Open a Pull Request
 
 ## Built with

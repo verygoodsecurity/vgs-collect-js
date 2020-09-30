@@ -29,7 +29,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "collect-js",
+  "name": "@vgs/collect-js",
   "author": "Anna Kudriasheva",
   "module": "dist/collect-js.esm.js",
   "devDependencies": {
