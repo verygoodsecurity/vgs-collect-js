@@ -25,7 +25,7 @@ const appendScript = (): HTMLScriptElement => {
   const { vaultId, environment, version } = config;
   const script = document.createElement('script');
 
-  script.src = `${scriptURL}/vgs-collect/${version}/vgs-collect.js?traceId=${SESSION_ID}&tenantId=${vaultId}&env=${environment}`;
+  script.src = `${scriptURL}/vgs-collect/${version}/vgs-collect.js?sessionId=${SESSION_ID}&tenantId=${vaultId}&env=${environment}`;
   appendElement(script);
 
   return script;
