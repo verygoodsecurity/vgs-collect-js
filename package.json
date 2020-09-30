@@ -1,5 +1,7 @@
 {
+  "name": "@vgs/collect-js",
   "version": "0.1.0",
+  "description": "VGS Collect.js script loading module",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +31,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@vgs/collect-js",
   "author": "Anna Kudriasheva",
   "module": "dist/collect-js.esm.js",
   "devDependencies": {
