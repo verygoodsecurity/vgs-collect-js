@@ -26,9 +26,16 @@
 
 ## Overview
 
+### What is VGS Collect.js?
+
 [VGS Collect.js](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview) is a JavaScript library that allows you to securely collect data via any form. Instantly create custom forms that adhere to PCI, HIPAA, GDPR, or CCPA security requirements. [VGS](https://www.verygoodsecurity.com/) intercepts sensitive data before it hits your servers and replaces it with aliased versions while securing the original data in our vault. The form fields behave like traditional forms while preventing access to the unsecured data by injecting secure iframe components.
 
-This module intended to simplify [VGS Collect.js](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview) script loading process. You can still use the conventional way and just stick a reference to the script in the HEAD section of your page but you may lose some beneficial advantages the package provides:
+- [Learn more](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview)
+- [Examples](https://verygoodsecurity.github.io/vgs-collect-examples)
+
+### Why do I need to use this package?
+
+This module intended to simplify [VGS Collect.js](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview) script loading process. To stay PCI Compliant it's a mandatory to load js from our `js.verygoodvault.com` domain as a consequence you need to find the best way to include our script, this small utility will solve the problem for you. You can still use the conventional way and just stick a reference to the script in the HEAD section of your page but you may lose some beneficial advantages the package provides:
 
 - Error handling
 - Fallback CDN managing
@@ -52,7 +59,7 @@ import { loadVGSCollect } from '@vgs/collect-js';
 // load script
 const VGSCollectInstance = await loadVGSCollect({
   vaultId: '<vault_id>', // required
-  environment: 'sandbox',
+  environment: '<environment>',
   version: '2.0'
 }).catch((e) => {
   // script was not loaded
@@ -76,7 +83,7 @@ Available properties:
 
 | Property    | Type   | Description                                                                                                                                                                           | Default     |
 |-------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| vaultId     | string | Every vault has a unique vault id - it’s a string value beginning with the prefix tnt                                                                                                 | required    |
+| vaultId     | string | Every VGS vault has a unique [vault id](https://www.verygoodsecurity.com/docs/terminology/nomenclature#vault) - it’s a string value beginning with the prefix `tnt`.                  | required    |
 | environment | string | Vault environment. Can be `sandbox`, `live`, or one with a specified data region (e.g `live-eu-1`).                                                                                   | `'sandbox'` |
 | version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'2.0'`     |
 
