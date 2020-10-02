@@ -1,4 +1,4 @@
-import { validateArguments } from '../src/utils/validation';
+import { validateArguments, isRequired } from '../src/utils/validation';
 
 const VALID_VALUES = [
   ['tnt12345678', 'sandbox', '2'],
@@ -35,4 +35,8 @@ describe('validateArguments()', () => {
       ).toThrow();
     }
   );
+});
+
+test('isRequired()', () => {
+  expect(() => isRequired('test')).toThrow('is required');
 });
