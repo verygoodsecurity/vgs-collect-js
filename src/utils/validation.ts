@@ -1,10 +1,11 @@
 const configSchema: IConfigSchema = {
-  vaultId: value => value.startsWith('tnt'),
+  vaultId: value => typeof value === 'string' && /^tnt.{8}$/.test(value),
   environment: value =>
-    ['sandbox', 'live', 'live-'].some(
-      substring => value.indexOf(substring) !== -1
-    ),
-  version: value => !value.startsWith('1'),
+    typeof value === 'string' && /^(sandbox|live)((-eu)-\d{1})?$/.test(value),
+  version: value =>
+    typeof value === 'string' &&
+    /^\d{1,2}\.\d{1,2}(\.\d{1,2})?$/.test(value) &&
+    !value.startsWith('1.'),
 };
 
 const isRequired = (param: string) => {
@@ -28,8 +29,8 @@ const validate = <T extends IConfigSchema, U extends { [key: string]: string }>(
   }
 };
 
-const validateArguments = (config: IConfig): void => {
+const validateConfig = (config: any): void => {
   validate(configSchema, config);
 };
 
-export { validateArguments, isRequired };
+export { validateConfig, isRequired };

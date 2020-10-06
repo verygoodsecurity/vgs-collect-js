@@ -24,7 +24,7 @@ describe('loadVGSCollect', () => {
   test('script exists after loadVGSCollect call', () => {
     const { loadVGSCollect } = require('../src/index');
     loadVGSCollect({
-      vaultId: 'tnt1234535',
+      vaultId: 'tnt12345352',
     });
     expect(document.head.innerHTML).toContain(
       `<link rel=\"dns-prefetch\" href=\"${MAIN_SCRIPT_DOMAIN}\"><link rel=\"dns-prefetch\" href=\"${BACKUP_SCRIPT_DOMAIN}\">`
