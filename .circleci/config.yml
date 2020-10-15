@@ -23,7 +23,7 @@ jobs:
             npm ci
       - run:
           name: Publish package
-          command: npm publish --access public
+          command: npm publish --access public --tag beta
 
 workflows:
   version: 2
