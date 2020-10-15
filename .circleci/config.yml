@@ -23,7 +23,8 @@ jobs:
             npm ci
       - run:
           name: Publish package
-          command: npm publish --access public --tag beta
+          command: |
+            npm publish --access public --tag beta
 
 workflows:
   version: 2
@@ -32,8 +33,6 @@ workflows:
       - test
       - publish:
           context: frontend-deploy
-          requires:
-            - test
           filters:
             branches:
               ignore: /.*/
