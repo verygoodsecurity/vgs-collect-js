@@ -16,6 +16,7 @@ jobs:
   publish:
     executor: node/default
     steps:
+      - checkout
       - run:
           name: Authenticate with NPM
           command: |
