@@ -16,7 +16,7 @@ Promise.resolve().then(() => {
   }
 });
 
-export const loadVGSCollect = (config: IConfig = isRequired('config')) => {
+const loadVGSCollect = (config: IConfig = isRequired('config')) => {
   const {
     vaultId = isRequired('vaultId'),
     environment = 'sandbox',
@@ -27,7 +27,7 @@ export const loadVGSCollect = (config: IConfig = isRequired('config')) => {
 
   return new Promise((resolve, reject) => {
     if (typeof window === undefined) {
-      reject(null);
+      reject('window is undefined');
       return;
     }
 
@@ -47,3 +47,5 @@ export const loadVGSCollect = (config: IConfig = isRequired('config')) => {
       });
   });
 };
+
+export { loadVGSCollect };

@@ -17,14 +17,14 @@ const validate = <T extends IConfigSchema, U extends { [key: string]: string }>(
   obj: U
 ): void => {
   if (schema) {
-  }
-  const errors = Object.keys(schema)
-    .filter(key => !schema[key](obj[key]))
-    .map(key => new Error(`${key} is invalid.`));
+    const errors = Object.keys(schema)
+      .filter(key => !schema[key](obj[key]))
+      .map(key => new Error(`${key} is invalid.`));
 
-  if (errors.length > 0) {
-    for (const { message } of errors) {
-      throw new Error(message);
+    if (errors.length > 0) {
+      for (const { message } of errors) {
+        throw new Error(message);
+      }
     }
   }
 };

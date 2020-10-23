@@ -4,7 +4,7 @@ import {
   ANALYTICS_EVENTS,
   VGS_COLLECT_KEEPER,
 } from '../constants/index';
-import { config, setConfig } from './setConfig';
+import { setConfig, getConfig } from './config';
 import { validateConfig } from './validation';
 
 const registerScriptLoading = (params: IConfig) => {
@@ -16,7 +16,7 @@ const registerScriptLoading = (params: IConfig) => {
 };
 
 const trackEvent = (event: any) => {
-  const { vaultId, environment, version } = config;
+  const { vaultId, environment, version } = getConfig();
   let payload = '';
 
   const data = {

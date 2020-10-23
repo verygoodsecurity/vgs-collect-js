@@ -16,11 +16,13 @@
   </p>
 </p>
 
+[![CircleCI](https://circleci.com/gh/verygoodsecurity/vgs-collect-js.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+
 * [Overview](#overview)
 * [Installation](#installation)
 * [How to use](#how-to-use)
 * [Documentation](#documentation)
-* [Contributing](#contributing)
+* [Examples](#examples)
 * [Built With](#built-with)
 * [Contact](#contact)
 
@@ -77,6 +79,25 @@ VGSCollectForm.field({...});
 VGSCollectForm.submit(...);
 ```
 
+or use Promise syntax as an alternative:
+
+```javascript
+import { loadVGSCollect } from '@vgs/collect-js';
+
+// load script
+loadVGSCollect({
+  vaultId: '<vault_id>', // required
+  environment: '<environment>',
+  version: '2.0'
+})
+  .then((VGSCollectInstance) => {
+    const VGSCollectForm = VGSCollectInstance.init(state => { console.log(state); });
+  })
+  .catch((e) => {
+  // script was not loaded
+});
+```
+
 ### loadVGSCollect(config)
 
 Available properties:
@@ -99,13 +120,9 @@ VGSCollect.init(state => { console.log(state); });
 
 Full abilities of VGS Collect.js and integration details you can find in our [documentation](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration).
 
-## Contributing 
+## Examples
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feaure/my-amazing-feature`)
-3. Commit your changes (`git commit -m 'feature: added amazing feature'`)
-4. Push to the branch (`git push origin feature/my-amazing-feature`)
-5. Open a Pull Request
+- [VGS Collect + React](https://stackblitz.com/edit/vgs-collect-js-react?file=src/App.js)
 
 ## Built with
 

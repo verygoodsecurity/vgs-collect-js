@@ -1,5 +1,5 @@
 import { trackEvent } from './trackEvent';
-import { config } from './setConfig';
+import { getConfig } from './config';
 import {
   SESSION_ID,
   MAIN_SCRIPT_DOMAIN,
@@ -22,7 +22,7 @@ const scriptExists = () => {
 };
 
 const appendScript = (): HTMLScriptElement => {
-  const { vaultId, environment, version } = config;
+  const { vaultId, environment, version } = getConfig();
   const script = document.createElement('script');
 
   script.src = `${scriptURL}/vgs-collect/${version}/vgs-collect.js?sessionId=${SESSION_ID}&tenantId=${vaultId}&env=${environment}`;

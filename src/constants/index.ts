@@ -7,6 +7,12 @@ const BACKUP_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;
 const VGS_COLLECT_KEEPER = `https://vgs-collect-keeper.apps.verygood.systems`;
 const SESSION_ID = uuidv4();
 
+const DEFAULT_CONFIG: IConfig = {
+  vaultId: '',
+  environment: 'sandbox',
+  version: VERSION,
+};
+
 const ANALYTICS_EVENTS = {
   // Script loaded from npm module
   LOADED_FROM_PACKAGE: 'LoadedFromPackage',
@@ -23,4 +29,5 @@ export {
   SESSION_ID,
   ANALYTICS_EVENTS,
   VGS_COLLECT_KEEPER,
+  DEFAULT_CONFIG,
 };
