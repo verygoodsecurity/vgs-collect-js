@@ -1,12 +1,14 @@
 import { loadScript } from './utils/loadScript';
 import { registerScriptLoading } from './utils/trackEvent';
-import { initCollect } from './utils/initCollect';
+import { collect } from './utils/collect';
 import { isRequired } from './utils/validation';
+
 import { VERSION } from './constants/index';
 
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
 
+// side effects
 Promise.resolve().then(() => {
   if (!window.VGSCollect) {
     // DNS lookup
@@ -32,14 +34,12 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
     }
 
     if (window.VGSCollect) {
-      initCollect(vaultId, environment);
-      resolve(window.VGSCollect);
+      resolve(collect);
     }
 
     loadScript()
       .then(() => {
-        initCollect(vaultId, environment);
-        resolve(window.VGSCollect);
+        resolve(collect);
       })
       .catch(e => {
         reject(e);

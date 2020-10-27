@@ -53,13 +53,13 @@ npm install @vgs/collect-js
 
 ## How to use
 
-The imported function inserts the `<script>` tag to the document head or body and returns the `VGSCollect` instance as the result of resolved Promise. The script won't be loaded until `loadVGSCollect()` invoked. In order to speed up cross-domain loading, `dns-prefetch` and `preconnect` were added as a side effect.
+The imported function inserts the `<script>` tag to the document head or body and returns the Collect instance as the result of resolved Promise. The script won't be loaded until `loadVGSCollect()` invoked. In order to speed up cross-domain loading, `dns-prefetch` and `preconnect` were added as a side effect.
 
 ```javascript 
 import { loadVGSCollect } from '@vgs/collect-js';
 
 // load script
-const VGSCollectInstance = await loadVGSCollect({
+const collect = await loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: '<environment>',
   version: '2.0'
@@ -68,15 +68,15 @@ const VGSCollectInstance = await loadVGSCollect({
 });
 
 // https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-state
-const VGSCollectForm = VGSCollectInstance.init(state => { console.log(state); });
+const form = collect.init(state => { console.log(state); });
 
 // https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#create-and-setup-form-fields
-VGSCollectForm.field({...});
-VGSCollectForm.field({...});
-VGSCollectForm.field({...});
+form.field({...});
+form.field({...});
+form.field({...});
 
 // https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#setup-form-submission
-VGSCollectForm.submit(...);
+form.submit(...);
 ```
 
 or use Promise syntax as an alternative:
@@ -90,8 +90,8 @@ loadVGSCollect({
   environment: '<environment>',
   version: '2.0'
 })
-  .then((VGSCollectInstance) => {
-    const VGSCollectForm = VGSCollectInstance.init(state => { console.log(state); });
+  .then((collect) => {
+    const form = collect.create(state => { console.log(state); });
   })
   .catch((e) => {
   // script was not loaded
@@ -106,14 +106,14 @@ Available properties:
 |-------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | vaultId     | string | Every VGS vault has a unique [vault id](https://www.verygoodsecurity.com/docs/terminology/nomenclature#vault) - it’s a string value beginning with the prefix `tnt`.                  | required    |
 | environment | string | Vault environment. Can be `sandbox`, `live`, or one with a specified data region (e.g `live-eu-1`).                                                                                   | `'sandbox'` |
-| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'2.0'`     |
+| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'2.1'`     |
 
-### .init(callback)
+### .create(callback)
 
-A wrapper over original [`.create()`](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-initialization) method. As we have already received `vault_id` and `environment` from the `loadVGSCollect()` argument, there is no need to specify those params again. The method only returns the form state in the callback. You can still use `.create()` if necessary.
+A wrapper over original [`.create()`](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-initialization) method. As we have already received `vault_id` and `environment` from the `loadVGSCollect()` argument, there is no need to specify those params again. The method only returns the form state in the callback.
 
 ```javascript
-VGSCollect.init(state => { console.log(state); });
+collect.create(state => { console.log(state); });
 ```
 
 ## Documentation
