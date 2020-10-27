@@ -1,9 +1,8 @@
 import { loadScript } from './utils/loadScript';
 import { registerScriptLoading } from './utils/trackEvent';
-import { collect } from './utils/collect';
 import { isRequired } from './utils/validation';
 
-import { VERSION } from './constants/index';
+import { VERSION } from './constants';
 
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
@@ -34,12 +33,16 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
     }
 
     if (window.VGSCollect) {
-      resolve(collect);
+      window.VGSCollect.setVault(vaultId);
+      window.VGSCollect.setEnvironment(environment);
+      resolve(window.VGSCollect);
     }
 
     loadScript()
       .then(() => {
-        resolve(collect);
+        window.VGSCollect.setVault(vaultId);
+        window.VGSCollect.setEnvironment(environment);
+        resolve(window.VGSCollect);
       })
       .catch(e => {
         reject(e);

@@ -5,7 +5,7 @@ import {
   MAIN_SCRIPT_DOMAIN,
   BACKUP_SCRIPT_DOMAIN,
   ANALYTICS_EVENTS,
-} from '../constants/index';
+} from '../constants';
 import { appendElement } from './appendElement';
 
 let scriptURL = MAIN_SCRIPT_DOMAIN;
