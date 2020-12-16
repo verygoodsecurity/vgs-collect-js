@@ -3,9 +3,8 @@ interface IStateCallback {
 }
 
 interface IVGSCollectGlobal {
-  create: (id: string, env: string, callback: IStateCallback | undefined) => any,
+  create: (id: string, env: string, callback: IStateCallback) => any,
+  init: (callback: () => void) => any,
   load: (modulesList: []) => void,
-  setVault: (vault: string) => void,
-  setEnvironment: (env: string) => void,
   modules: []
 }

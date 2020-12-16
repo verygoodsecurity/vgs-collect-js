@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const VERSION = '2.1';
+const VERSION = '2.2';
 
 const MAIN_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;
 const BACKUP_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;

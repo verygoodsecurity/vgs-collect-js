@@ -1,5 +1,6 @@
 import { loadScript } from './utils/loadScript';
 import { registerScriptLoading } from './utils/trackEvent';
+import { initCollect } from './utils/initCollect';
 import { isRequired } from './utils/validation';
 
 import { VERSION } from './constants';
@@ -33,15 +34,13 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
     }
 
     if (window.VGSCollect) {
-      window.VGSCollect.setVault(vaultId);
-      window.VGSCollect.setEnvironment(environment);
+      initCollect(vaultId, environment);
       resolve(window.VGSCollect);
     }
 
     loadScript()
       .then(() => {
-        window.VGSCollect.setVault(vaultId);
-        window.VGSCollect.setEnvironment(environment);
+        initCollect(vaultId, environment);
         resolve(window.VGSCollect);
       })
       .catch(e => {

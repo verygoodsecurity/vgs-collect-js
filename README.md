@@ -62,7 +62,7 @@ import { loadVGSCollect } from '@vgs/collect-js';
 const collect = await loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: '<environment>',
-  version: '2.0'
+  version: '2.2.1'
 }).catch((e) => {
   // script was not loaded
 });
@@ -88,7 +88,7 @@ import { loadVGSCollect } from '@vgs/collect-js';
 loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: '<environment>',
-  version: '2.0'
+  version: '2.2.0'
 })
   .then((collect) => {
     const form = collect.create(state => { console.log(state); });
@@ -106,14 +106,14 @@ Available properties:
 |-------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | vaultId     | string | Every VGS vault has a unique [vault id](https://www.verygoodsecurity.com/docs/terminology/nomenclature#vault) - it’s a string value beginning with the prefix `tnt`.                  | required    |
 | environment | string | Vault environment. Can be `sandbox`, `live`, or one with a specified data region (e.g `live-eu-1`).                                                                                   | `'sandbox'` |
-| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'2.1'`     |
+| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'2.2'`     |
 
-### .create(callback)
+### .init(callback)
 
-A wrapper over original [`.create()`](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-initialization) method. As we have already received `vault_id` and `environment` from the `loadVGSCollect()` argument, there is no need to specify those params again. The method only returns the form state in the callback.
+A wrapper over original [`.create()`](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-initialization) method. As we have already received `vault_id` and `environment` from the `loadVGSCollect()` argument, there is no need to specify those params again. The method only returns the form state in the callback.You can still use `.create()` if necessary.
 
 ```javascript
-collect.create(state => { console.log(state); });
+VGSCollect.init(state => { console.log(state); });
 ```
 
 ## Documentation
