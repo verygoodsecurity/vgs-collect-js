@@ -1,7 +1,7 @@
-const initCollect = (vaultId: string, environment: string): void => {	
+const initCollect = (vaultId: string, environment: string): void => {
   window.VGSCollect.init = (callback: IStateCallback = () => {}) => {
-    return window.VGSCollect.create(vaultId, environment, callback);	
-  };	
-};	
+    return window.VGSCollect.create(vaultId, environment, callback);
+  };
+};
 
 export { initCollect };

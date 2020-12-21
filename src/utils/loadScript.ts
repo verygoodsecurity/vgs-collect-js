@@ -5,6 +5,7 @@ import {
   MAIN_SCRIPT_DOMAIN,
   BACKUP_SCRIPT_DOMAIN,
   ANALYTICS_EVENTS,
+  ERROR_MESSAGE,
 } from '../constants';
 import { appendElement } from './appendElement';
 
@@ -49,7 +50,7 @@ const loadScript = (loadMainCDN: boolean = true) => {
               status: 'OK',
               mainCDN: loadMainCDN,
             });
-            reject('VGS Collect is undefined.');
+            reject(ERROR_MESSAGE.IS_UNDEFINED('VGS Collect'));
           }
           trackEvent({
             type: ANALYTICS_EVENTS.SCRIPT_LOAD,
@@ -69,7 +70,7 @@ const loadScript = (loadMainCDN: boolean = true) => {
             // Load script from backup CDN
             resolve(loadScript(false));
           } else {
-            reject(`VGS Collect.js script was not loaded.`);
+            reject(ERROR_MESSAGE.SCRIPT_WAS_NOT_LOADED);
           }
         };
       }

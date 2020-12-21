@@ -1,8 +1,12 @@
+import { ERROR_MESSAGE } from '../constants';
+
 const appendElement = (elem: HTMLScriptElement | HTMLLinkElement) => {
   const target = document.head || document.body;
 
   if (!target) {
-    throw new Error('Unable to find document.head or document.body');
+    throw new Error(
+      ERROR_MESSAGE.UNABLE_TO_FIND('document.head or document.body')
+    );
   }
 
   target.append(elem);

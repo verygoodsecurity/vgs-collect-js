@@ -1,15 +1,18 @@
+import { ERROR_MESSAGE } from '../constants';
+
 const configSchema: IConfigSchema = {
   vaultId: value => typeof value === 'string' && /^tnt.{8}$/.test(value),
   environment: value =>
     typeof value === 'string' && /^(sandbox|live)((-eu)-\d{1})?$/.test(value),
   version: value =>
-    typeof value === 'string' &&
-    /^\d{1,2}\.\d{1,2}(\.\d{1,2})?$/.test(value) &&
-    !value.startsWith('1.'),
+    value === 'canary' ||
+    (typeof value === 'string' &&
+      /^\d{1,2}\.\d{1,2}(\.\d{1,2})?$/.test(value) &&
+      !value.startsWith('1.')),
 };
 
 const isRequired = (param: string) => {
-  throw new Error(`${param} is required.`);
+  throw new Error(ERROR_MESSAGE.IS_REQUIRED(param));
 };
 
 const validate = <T extends IConfigSchema, U extends { [key: string]: string }>(
@@ -19,7 +22,7 @@ const validate = <T extends IConfigSchema, U extends { [key: string]: string }>(
   if (schema) {
     const errors = Object.keys(schema)
       .filter(key => !schema[key](obj[key]))
-      .map(key => new Error(`${key} is invalid.`));
+      .map(key => new Error(ERROR_MESSAGE.IS_INVALID(key)));
 
     if (errors.length) {
       const [error] = errors;

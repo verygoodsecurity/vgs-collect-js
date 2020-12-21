@@ -62,7 +62,7 @@ import { loadVGSCollect } from '@vgs/collect-js';
 const collect = await loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: '<environment>',
-  version: '2.2.1'
+  version: '<x.x.x>'
 }).catch((e) => {
   // script was not loaded
 });
@@ -88,7 +88,7 @@ import { loadVGSCollect } from '@vgs/collect-js';
 loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: '<environment>',
-  version: '2.2.0'
+  version: '<x.x.x>'
 })
   .then((collect) => {
     const form = collect.create(state => { console.log(state); });
@@ -106,7 +106,7 @@ Available properties:
 |-------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | vaultId     | string | Every VGS vault has a unique [vault id](https://www.verygoodsecurity.com/docs/terminology/nomenclature#vault) - it’s a string value beginning with the prefix `tnt`.                  | required    |
 | environment | string | Vault environment. Can be `sandbox`, `live`, or one with a specified data region (e.g `live-eu-1`).                                                                                   | `'sandbox'` |
-| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'2.2'`     |
+| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'canary'`     |
 
 ### .init(callback)
 

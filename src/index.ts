@@ -3,7 +3,7 @@ import { registerScriptLoading } from './utils/trackEvent';
 import { initCollect } from './utils/initCollect';
 import { isRequired } from './utils/validation';
 
-import { VERSION } from './constants';
+import { ERROR_MESSAGE, DEFAULT_CONFIG } from './constants';
 
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
@@ -21,15 +21,19 @@ Promise.resolve().then(() => {
 const loadVGSCollect = (config: IConfig = isRequired('config')) => {
   const {
     vaultId = isRequired('vaultId'),
-    environment = 'sandbox',
-    version = VERSION,
+    environment = DEFAULT_CONFIG.environment,
+    version = DEFAULT_CONFIG.version,
   } = config;
+
+  if (version === 'canary') {
+    console.warn(ERROR_MESSAGE.CHANGE_VERSION);
+  }
 
   registerScriptLoading({ vaultId, environment, version });
 
   return new Promise((resolve, reject) => {
     if (typeof window === undefined) {
-      reject('window is undefined');
+      reject(ERROR_MESSAGE.IS_UNDEFINED('window'));
       return;
     }
 
