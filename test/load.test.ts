@@ -27,10 +27,10 @@ describe('loadVGSCollect', () => {
       vaultId: 'tnt12345352',
     });
     expect(document.head.innerHTML).toContain(
-      `<link rel=\"dns-prefetch\" href=\"${MAIN_SCRIPT_DOMAIN}\"><link rel=\"dns-prefetch\" href=\"${BACKUP_SCRIPT_DOMAIN}\">`
+      `<link rel="dns-prefetch" href="${MAIN_SCRIPT_DOMAIN}"><link rel="dns-prefetch" href="${BACKUP_SCRIPT_DOMAIN}">`
     );
     expect(document.head.innerHTML).toContain(
-      `<link rel=\"preconnect\" href=\"${MAIN_SCRIPT_DOMAIN}\"><link rel=\"preconnect\" href=\"${BACKUP_SCRIPT_DOMAIN}\">`
+      `<link rel="preconnect" href="${MAIN_SCRIPT_DOMAIN}"><link rel="preconnect" href="${BACKUP_SCRIPT_DOMAIN}">`
     );
     expect(document.querySelectorAll(SCRIPT_URL).length).toBe(1);
   });
@@ -56,13 +56,13 @@ describe('check pre-fectch preconnect', () => {
   test('check for dns-prefetch link', () => {
     preFetch();
     expect(document.head.innerHTML).toContain(
-      `<link rel=\"dns-prefetch\" href=\"${MAIN_SCRIPT_DOMAIN}\"><link rel=\"dns-prefetch\" href=\"${BACKUP_SCRIPT_DOMAIN}\">`
+      `<link rel="dns-prefetch" href="${MAIN_SCRIPT_DOMAIN}"><link rel="dns-prefetch" href="${BACKUP_SCRIPT_DOMAIN}">`
     );
   });
   test('check for preconnect link', () => {
     preConnect();
     expect(document.head.innerHTML).toContain(
-      `<link rel=\"preconnect\" href=\"${MAIN_SCRIPT_DOMAIN}\"><link rel=\"preconnect\" href=\"${BACKUP_SCRIPT_DOMAIN}\">`
+      `<link rel="preconnect" href="${MAIN_SCRIPT_DOMAIN}"><link rel="preconnect" href="${BACKUP_SCRIPT_DOMAIN}">`
     );
   });
 });

@@ -1,5 +1,5 @@
 import { appendLink } from '../utils/appendElement';
-import { MAIN_SCRIPT_DOMAIN, BACKUP_SCRIPT_DOMAIN } from '../constants/index';
+import { MAIN_SCRIPT_DOMAIN, BACKUP_SCRIPT_DOMAIN } from '../constants';
 
 const preFetch = () => {
   appendLink('dns-prefetch', MAIN_SCRIPT_DOMAIN);

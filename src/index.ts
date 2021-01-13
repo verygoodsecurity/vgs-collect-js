@@ -2,11 +2,13 @@ import { loadScript } from './utils/loadScript';
 import { registerScriptLoading } from './utils/trackEvent';
 import { initCollect } from './utils/initCollect';
 import { isRequired } from './utils/validation';
-import { VERSION } from './constants/index';
+
+import { ERROR_MESSAGE, DEFAULT_CONFIG } from './constants';
 
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
 
+// side effects
 Promise.resolve().then(() => {
   if (!window.VGSCollect) {
     // DNS lookup
@@ -16,18 +18,22 @@ Promise.resolve().then(() => {
   }
 });
 
-export const loadVGSCollect = (config: IConfig = isRequired('config')) => {
+const loadVGSCollect = (config: IConfig = isRequired('config')) => {
   const {
     vaultId = isRequired('vaultId'),
-    environment = 'sandbox',
-    version = VERSION,
+    environment = DEFAULT_CONFIG.environment,
+    version = DEFAULT_CONFIG.version,
   } = config;
+
+  if (version === 'canary') {
+    console.warn(ERROR_MESSAGE.CHANGE_VERSION);
+  }
 
   registerScriptLoading({ vaultId, environment, version });
 
   return new Promise((resolve, reject) => {
     if (typeof window === undefined) {
-      reject(null);
+      reject(ERROR_MESSAGE.IS_UNDEFINED('window'));
       return;
     }
 
@@ -47,3 +53,5 @@ export const loadVGSCollect = (config: IConfig = isRequired('config')) => {
       });
   });
 };
+
+export { loadVGSCollect };

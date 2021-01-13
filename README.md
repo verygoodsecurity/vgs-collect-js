@@ -16,11 +16,13 @@
   </p>
 </p>
 
+[![CircleCI](https://circleci.com/gh/verygoodsecurity/vgs-collect-js.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+
 * [Overview](#overview)
 * [Installation](#installation)
 * [How to use](#how-to-use)
 * [Documentation](#documentation)
-* [Contributing](#contributing)
+* [Examples](#examples)
 * [Built With](#built-with)
 * [Contact](#contact)
 
@@ -51,30 +53,49 @@ npm install @vgs/collect-js
 
 ## How to use
 
-The imported function inserts the `<script>` tag to the document head or body and returns the `VGSCollect` instance as the result of resolved Promise. The script won't be loaded until `loadVGSCollect()` invoked. In order to speed up cross-domain loading, `dns-prefetch` and `preconnect` were added as a side effect.
+The imported function inserts the `<script>` tag to the document head or body and returns the Collect instance as the result of resolved Promise. The script won't be loaded until `loadVGSCollect()` invoked. In order to speed up cross-domain loading, `dns-prefetch` and `preconnect` were added as a side effect.
 
 ```javascript 
 import { loadVGSCollect } from '@vgs/collect-js';
 
 // load script
-const VGSCollectInstance = await loadVGSCollect({
+const collect = await loadVGSCollect({
   vaultId: '<vault_id>', // required
   environment: '<environment>',
-  version: '2.0'
+  version: '<x.x.x>'
 }).catch((e) => {
   // script was not loaded
 });
 
 // https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-state
-const VGSCollectForm = VGSCollectInstance.init(state => { console.log(state); });
+const form = collect.init(state => { console.log(state); });
 
 // https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#create-and-setup-form-fields
-VGSCollectForm.field({...});
-VGSCollectForm.field({...});
-VGSCollectForm.field({...});
+form.field({...});
+form.field({...});
+form.field({...});
 
 // https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#setup-form-submission
-VGSCollectForm.submit(...);
+form.submit(...);
+```
+
+or use Promise syntax as an alternative:
+
+```javascript
+import { loadVGSCollect } from '@vgs/collect-js';
+
+// load script
+loadVGSCollect({
+  vaultId: '<vault_id>', // required
+  environment: '<environment>',
+  version: '<x.x.x>'
+})
+  .then((collect) => {
+    const form = collect.create(state => { console.log(state); });
+  })
+  .catch((e) => {
+  // script was not loaded
+});
 ```
 
 ### loadVGSCollect(config)
@@ -85,11 +106,11 @@ Available properties:
 |-------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
 | vaultId     | string | Every VGS vault has a unique [vault id](https://www.verygoodsecurity.com/docs/terminology/nomenclature#vault) - it’s a string value beginning with the prefix `tnt`.                  | required    |
 | environment | string | Vault environment. Can be `sandbox`, `live`, or one with a specified data region (e.g `live-eu-1`).                                                                                   | `'sandbox'` |
-| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'2.0'`     |
+| version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'canary'`     |
 
 ### .init(callback)
 
-A wrapper over original [`.create()`](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-initialization) method. As we have already received `vault_id` and `environment` from the `loadVGSCollect()` argument, there is no need to specify those params again. The method only returns the form state in the callback. You can still use `.create()` if necessary.
+A wrapper over original [`.create()`](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration#form-initialization) method. As we have already received `vault_id` and `environment` from the `loadVGSCollect()` argument, there is no need to specify those params again. The method only returns the form state in the callback.You can still use `.create()` if necessary.
 
 ```javascript
 VGSCollect.init(state => { console.log(state); });
@@ -99,13 +120,9 @@ VGSCollect.init(state => { console.log(state); });
 
 Full abilities of VGS Collect.js and integration details you can find in our [documentation](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration).
 
-## Contributing 
+## Examples
 
-1. Fork the project
-2. Create your feature branch (`git checkout -b feaure/my-amazing-feature`)
-3. Commit your changes (`git commit -m 'feature: added amazing feature'`)
-4. Push to the branch (`git push origin feature/my-amazing-feature`)
-5. Open a Pull Request
+- [VGS Collect + React](https://stackblitz.com/edit/vgs-collect-js-react?file=src/App.js)
 
 ## Built with
 

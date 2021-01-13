@@ -1,11 +1,12 @@
 import { trackEvent } from './trackEvent';
-import { config } from './setConfig';
+import { getConfig } from './config';
 import {
   SESSION_ID,
   MAIN_SCRIPT_DOMAIN,
   BACKUP_SCRIPT_DOMAIN,
   ANALYTICS_EVENTS,
-} from '../constants/index';
+  ERROR_MESSAGE,
+} from '../constants';
 import { appendElement } from './appendElement';
 
 let scriptURL = MAIN_SCRIPT_DOMAIN;
@@ -22,7 +23,7 @@ const scriptExists = () => {
 };
 
 const appendScript = (): HTMLScriptElement => {
-  const { vaultId, environment, version } = config;
+  const { vaultId, environment, version } = getConfig();
   const script = document.createElement('script');
 
   script.src = `${scriptURL}/vgs-collect/${version}/vgs-collect.js?sessionId=${SESSION_ID}&tenantId=${vaultId}&env=${environment}`;
@@ -49,7 +50,7 @@ const loadScript = (loadMainCDN: boolean = true) => {
               status: 'OK',
               mainCDN: loadMainCDN,
             });
-            reject('VGS Collect is undefined.');
+            reject(ERROR_MESSAGE.IS_UNDEFINED('VGS Collect'));
           }
           trackEvent({
             type: ANALYTICS_EVENTS.SCRIPT_LOAD,
@@ -69,7 +70,7 @@ const loadScript = (loadMainCDN: boolean = true) => {
             // Load script from backup CDN
             resolve(loadScript(false));
           } else {
-            reject(`VGS Collect.js script was not loaded.`);
+            reject(ERROR_MESSAGE.SCRIPT_WAS_NOT_LOADED);
           }
         };
       }
