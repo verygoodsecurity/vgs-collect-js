@@ -1,5 +1,7 @@
 import { ERROR_MESSAGE } from '../constants';
 
+type IConfigSchema = Record<string, (value: string) => boolean>;
+
 const configSchema: IConfigSchema = {
   vaultId: value => typeof value === 'string' && /^tnt.{8}$/.test(value),
   environment: value =>

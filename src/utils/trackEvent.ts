@@ -5,6 +5,7 @@ import {
   VGS_COLLECT_KEEPER,
 } from '../constants/index';
 import { setConfig, getConfig } from './config';
+import { IConfig } from './IConfig';
 import { validateConfig } from './validation';
 
 const registerScriptLoading = (params: IConfig) => {

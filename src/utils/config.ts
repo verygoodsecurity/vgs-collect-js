@@ -1,4 +1,5 @@
 import { DEFAULT_CONFIG } from '../constants/index';
+import { IConfig } from './IConfig';
 
 let config = DEFAULT_CONFIG;
 
