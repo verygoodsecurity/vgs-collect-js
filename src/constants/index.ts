@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { IConfig } from '../utils/IConfig';
 
 const MAIN_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;
 const BACKUP_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;

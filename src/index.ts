@@ -7,6 +7,7 @@ import { ERROR_MESSAGE, DEFAULT_CONFIG } from './constants';
 
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
+import { IConfig } from './utils/IConfig';
 
 // side effects
 Promise.resolve().then(() => {
