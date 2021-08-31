@@ -8,6 +8,7 @@ import {
   ERROR_MESSAGE,
 } from '../constants';
 import { appendElement } from './appendElement';
+import { isVersionGreater } from './parseVersion';
 
 let scriptURL = MAIN_SCRIPT_DOMAIN;
 
@@ -34,7 +35,14 @@ const appendScript = (): HTMLScriptElement => {
 
 const loadScript = (loadMainCDN: boolean = true) => {
   const collectPromise = new Promise((resolve, reject) => {
-    scriptURL = loadMainCDN ? scriptURL : BACKUP_SCRIPT_DOMAIN;
+    const { version } = getConfig();
+
+    scriptURL = loadMainCDN
+      ? scriptURL
+      : // We've started support backup Fastly CDN staring Collect.js version 2.3.0
+      isVersionGreater(version, '2.3.0')
+      ? BACKUP_SCRIPT_DOMAIN
+      : MAIN_SCRIPT_DOMAIN;
 
     if (scriptExists() && window.VGSCollect) {
       resolve(window.VGSCollect);
