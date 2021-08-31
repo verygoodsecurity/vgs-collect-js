@@ -1,3 +1,4 @@
+import Promise from 'promise-polyfill';
 import { trackEvent } from './trackEvent';
 import { getConfig } from './config';
 import {
