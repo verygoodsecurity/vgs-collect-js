@@ -37,15 +37,13 @@ const loadScript = (loadMainCDN: boolean = true) => {
   const collectPromise = new Promise((resolve, reject) => {
     const { version } = getConfig();
 
-    scriptURL = loadMainCDN
-      ? scriptURL
-      : // We've started support backup Fastly CDN staring Collect.js version 2.3.0
-      isVersionGreater(version, '2.3.0')
-      ? BACKUP_SCRIPT_DOMAIN
-      : MAIN_SCRIPT_DOMAIN;
-
     if (scriptExists() && window.VGSCollect) {
       resolve(window.VGSCollect);
+    }
+
+    // Fastly fallback CDN is available starting Collect.js version 2.3.0
+    if (!loadMainCDN && isVersionGreater(version, '2.3.0')) {
+      scriptURL = BACKUP_SCRIPT_DOMAIN;
     }
 
     if (!window.VGSCollect) {
