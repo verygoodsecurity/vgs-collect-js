@@ -11,7 +11,7 @@ import { IConfig } from './utils/IConfig';
 
 // side effects
 Promise.resolve().then(() => {
-  if (!window.VGSCollect) {
+  if (typeof window !== 'undefined' && !window.VGSCollect) {
     // DNS lookup
     preFetch();
     // Establish connection to the server
@@ -33,7 +33,7 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
   registerScriptLoading({ vaultId, environment, version });
 
   return new Promise((resolve, reject) => {
-    if (typeof window === undefined) {
+    if (typeof window === 'undefined') {
       reject(ERROR_MESSAGE.IS_UNDEFINED('window'));
       return;
     }
