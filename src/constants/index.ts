@@ -1,8 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IConfig } from '../utils/IConfig';
 
+// Loading script from CloudFront CDN
 const MAIN_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;
-const BACKUP_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;
+// Loading script from Fastly CDN
+const BACKUP_SCRIPT_DOMAIN = `https://js3.verygoodvault.com`;
 const VGS_COLLECT_KEEPER = `https://vgs-collect-keeper.apps.verygood.systems`;
 const SESSION_ID = uuidv4();
 

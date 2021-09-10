@@ -9,6 +9,7 @@ import {
   ERROR_MESSAGE,
 } from '../constants';
 import { appendElement } from './appendElement';
+import { isVersionGreater } from './parseVersion';
 
 let scriptURL = MAIN_SCRIPT_DOMAIN;
 
@@ -35,10 +36,15 @@ const appendScript = (): HTMLScriptElement => {
 
 const loadScript = (loadMainCDN: boolean = true) => {
   const collectPromise = new Promise((resolve, reject) => {
-    scriptURL = loadMainCDN ? scriptURL : BACKUP_SCRIPT_DOMAIN;
+    const { version } = getConfig();
 
     if (scriptExists() && window.VGSCollect) {
       resolve(window.VGSCollect);
+    }
+
+    // Fastly fallback CDN is available starting Collect.js version 2.3.0
+    if (!loadMainCDN && isVersionGreater(version, '2.3.0')) {
+      scriptURL = BACKUP_SCRIPT_DOMAIN;
     }
 
     if (!window.VGSCollect) {
