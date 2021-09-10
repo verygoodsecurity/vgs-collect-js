@@ -9,7 +9,7 @@ const appendElement = (elem: HTMLScriptElement | HTMLLinkElement) => {
     );
   }
 
-  target.append(elem);
+  target.appendChild(elem);
   return elem;
 };
 
