@@ -120,6 +120,14 @@ VGSCollect.init(state => { console.log(state); });
 
 Full abilities of VGS Collect.js and integration details you can find in our [documentation](https://www.verygoodsecurity.com/docs/vgs-collect/js/integration).
 
+## CSP directives
+
+We strongly recommend to add the CSP to your application. Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross Site Scripting (XSS) and data injection attacks. Please create CSP directives for the following domains:
+
+`connect-src https://js.verygoodvault.com https://js3.verygoodvault.com`
+`frame-src https://js.verygoodvault.com https://js3.verygoodvault.com`
+`script-src https://js.verygoodvault.com https://js3.verygoodvault.com`
+
 ## Examples
 
 - [VGS Collect + React](https://stackblitz.com/edit/vgs-collect-js-react?file=src/App.js)
