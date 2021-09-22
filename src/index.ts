@@ -1,6 +1,3 @@
-import Promise from 'promise-polyfill';
-import setAsap from 'setasap';
-
 import { loadScript } from './utils/loadScript';
 import { registerScriptLoading } from './utils/trackEvent';
 import { initCollect } from './utils/initCollect';
@@ -11,8 +8,6 @@ import { ERROR_MESSAGE, DEFAULT_CONFIG } from './constants';
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
 import { IConfig } from './utils/IConfig';
-
-Promise._immediateFn = setAsap;
 
 // side effects
 Promise.resolve().then(() => {
