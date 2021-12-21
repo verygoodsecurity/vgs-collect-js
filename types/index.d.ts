@@ -1,3 +1,3 @@
 interface Window {
-  VGSCollect: any;
+  VGSCollect: import('../src/types/collect-api/form').VGSCollectInstance;
 }

@@ -1,4 +1,4 @@
-export interface IConfig {
+export interface LoadVGSCollectConfig {
   vaultId: string;
   environment: string;
   version: string;
