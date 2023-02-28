@@ -33,7 +33,7 @@
 [VGS Collect.js](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview) is a JavaScript library that allows you to securely collect data via any form. Instantly create custom forms that adhere to PCI, HIPAA, GDPR, or CCPA security requirements. [VGS](https://www.verygoodsecurity.com/) intercepts sensitive data before it hits your servers and replaces it with aliased versions while securing the original data in our vault. The form fields behave like traditional forms while preventing access to the unsecured data by injecting secure iframe components.
 
 - [Learn more](https://www.verygoodsecurity.com/docs/vgs-collect/js/overview)
-- [Examples](https://verygoodsecurity.github.io/vgs-collect-examples)
+- [Examples](https://vgs-samples.github.io/vgs-collect-examples/)
 
 ### Why do I need to use this package?
 
