@@ -5,10 +5,15 @@ import { MAIN_SCRIPT_DOMAIN, BACKUP_SCRIPT_DOMAIN } from '../src/constants';
 
 const SCRIPT_URL = 'script[src^="https://js.verygoodvault.com/vgs-collect/"]';
 
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve(true),
+  }),
+) as jest.Mock;
+
 describe('loadVGSCollect', () => {
   afterEach(() => {
     const scripts = Array.from(document.querySelectorAll(SCRIPT_URL));
-
     for (const script of scripts) {
       if (script.parentElement) {
         script.parentElement.removeChild(script);

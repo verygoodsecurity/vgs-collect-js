@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   SESSION_ID,
   ANALYTICS_EVENTS,
@@ -35,17 +34,16 @@ const trackEvent = (event: any) => {
     return;
   }
 
-  axios({
+  fetch(`${VGS_COLLECT_KEEPER}/vgs`, {
     method: 'POST',
-    url: `${VGS_COLLECT_KEEPER}/vgs`,
-    data: payload,
+    body: payload,
   })
-    .then(() => {
-      return true;
-    })
-    .catch(() => {
-      return;
-    });
+  .then(() => {
+    return true;
+  })
+  .catch(() => {
+    return;
+  });
 };
 
 export { trackEvent, registerScriptLoading };
