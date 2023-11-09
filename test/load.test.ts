@@ -8,7 +8,7 @@ const SCRIPT_URL = 'script[src^="https://js.verygoodvault.com/vgs-collect/"]';
 global.fetch = jest.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve(true),
-  }),
+  })
 ) as jest.Mock;
 
 describe('loadVGSCollect', () => {

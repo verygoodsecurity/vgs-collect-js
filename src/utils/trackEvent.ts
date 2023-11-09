@@ -38,12 +38,12 @@ const trackEvent = (event: any) => {
     method: 'POST',
     body: payload,
   })
-  .then(() => {
-    return true;
-  })
-  .catch(() => {
-    return;
-  });
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return true;
+    });
 };
 
 export { trackEvent, registerScriptLoading };
