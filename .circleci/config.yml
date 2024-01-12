@@ -43,7 +43,7 @@ jobs:
       SEMGREP_BRANCH: << pipeline.git.branch >>
       SEMGREP_BASELINE_REF: << parameters.default_branch >>
     docker:
-      - image: returntocorp/semgrep
+      - image: cimg/deploy:2023.09-node
     steps:
       - checkout
       - run:
@@ -59,7 +59,7 @@ jobs:
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
     docker:
-      - image: returntocorp/semgrep
+      - image: cimg/deploy:2023.09-node
     steps:
       - checkout
       - run:
