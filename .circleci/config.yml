@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.0.1
+  node: cimg/deploy:2023.09-node
 
 # === Scheduled Pipeline Parameters ===
 parameters:
@@ -43,7 +43,7 @@ jobs:
       SEMGREP_BRANCH: << pipeline.git.branch >>
       SEMGREP_BASELINE_REF: << parameters.default_branch >>
     docker:
-      - image: cimg/deploy:2023.09-node
+      - image: returntocorp/semgrep
     steps:
       - checkout
       - run:
@@ -59,7 +59,7 @@ jobs:
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
     docker:
-      - image: cimg/deploy:2023.09-node
+      - image: returntocorp/semgrep
     steps:
       - checkout
       - run:
