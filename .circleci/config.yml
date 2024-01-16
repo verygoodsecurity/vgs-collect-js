@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.0.1
+  node: cimg/deploy:2023.09-node
 
 # === Scheduled Pipeline Parameters ===
 parameters:
