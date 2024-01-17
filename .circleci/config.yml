@@ -70,19 +70,6 @@ jobs:
 
 workflows:
   version: 2
-  dev-test:
-    jobs:
-      - test
-      - scan-sast-pr:
-          context:
-            - security-tools
-            - frontend-deploy
-
-      - scan-sast-full:
-          context:
-            - security-tools
-            - frontend-deploy
-
   test-and-publish:
     when:
       not: << pipeline.parameters.nightly-security-scan >>
