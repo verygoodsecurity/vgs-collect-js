@@ -35,6 +35,7 @@ init-npm: &init-npm
 
 jobs:
   test:
+    <<: *defaults_ci
     steps:
       - checkout
       - <<: *restore-cache-deps
@@ -43,6 +44,7 @@ jobs:
       - run: npm run test
 
   publish:
+    <<: *defaults_ci
     steps:
       - checkout
       - <<: *restore-cache-deps
