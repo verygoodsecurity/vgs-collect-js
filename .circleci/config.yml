@@ -70,6 +70,26 @@ jobs:
 
 workflows:
   version: 2
+  dev-test:
+    jobs:
+      - test
+      - scan-sast-pr:
+          context:
+            - security-tools
+            - frontend-deploy
+
+      - scan-sast-full:
+          filters:
+            # ignore any commit on any branch by default
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - /production-.*/
+          context:
+            - security-tools
+            - frontend-deploy
+
   test-and-publish:
     when:
       not: << pipeline.parameters.nightly-security-scan >>
