@@ -79,13 +79,6 @@ workflows:
             - frontend-deploy
 
       - scan-sast-full:
-          filters:
-            # ignore any commit on any branch by default
-            branches:
-              ignore: /.*/
-            tags:
-              only:
-                - /production-.*/
           context:
             - security-tools
             - frontend-deploy
