@@ -1,7 +1,9 @@
 version: 2.1
 
-orbs:
-  node: cimg/deploy:2023.09-node
+defaults_ci: &defaults_ci
+  working_directory: ~/vgs-collect-js
+  docker:
+    - image: cimg/deploy:2023.09-node
 
 # === Scheduled Pipeline Parameters ===
 parameters:
