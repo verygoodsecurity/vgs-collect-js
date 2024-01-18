@@ -1,7 +1,9 @@
 version: 2.1
 
-orbs:
-  node: cimg/deploy:2023.09-node
+defaults_ci: &defaults_ci
+  working_directory: ~/vgs-collect-js
+  docker:
+    - image: cimg/deploy:2023.09-node
 
 # === Scheduled Pipeline Parameters ===
 parameters:
@@ -9,20 +11,45 @@ parameters:
     type: boolean
     default: false
 
+restore-cache-deps: &restore-cache-deps
+  restore_cache:
+    keys:
+      - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - node-v1-{{ .Branch }}-
+      - node-v1-
+    paths:
+      - /usr/local/lib/node_modules
+
+cache-deps: &cache-deps
+  save_cache:
+    key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+    paths:
+      - /usr/local/lib/node_modules
+
+init-npm: &init-npm
+  run:
+    name: Install dependencies
+    command: |
+      sudo npm i -g nx typescript
+      sudo npm ci
+
 jobs:
   test:
-    executor: node/default
+    <<: *defaults_ci
     steps:
       - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install
+      - <<: *restore-cache-deps
+      - <<: *init-npm
+      - <<: *cache-deps
       - run: npm run test
 
   publish:
-    executor: node/default
+    <<: *defaults_ci
     steps:
       - checkout
+      - <<: *restore-cache-deps
+      - <<: *init-npm
+      - <<: *cache-deps
       - run:
           name: Authenticate with NPM
           command: |
