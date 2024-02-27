@@ -4,6 +4,7 @@
   "description": "VGS Collect.js script loading module",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",

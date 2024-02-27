@@ -1,6 +1,6 @@
 {
-  "include": ["src", "types"],
-  "compilerOptions": {
+ "include": ["src", "types"],
+ "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,

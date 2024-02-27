@@ -4,10 +4,10 @@ import {
   VGS_COLLECT_KEEPER,
 } from '../constants/index';
 import { setConfig, getConfig } from './config';
-import { IConfig } from './IConfig';
+import { LoadVGSCollectConfig } from '../types/config';
 import { validateConfig } from './validation';
 
-const registerScriptLoading = (params: IConfig) => {
+const registerScriptLoading = (params: LoadVGSCollectConfig) => {
   validateConfig(params);
   setConfig(params);
   trackEvent({

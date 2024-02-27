@@ -7,7 +7,11 @@ import { ERROR_MESSAGE, DEFAULT_CONFIG } from './constants';
 
 import { preFetch } from './sideEffects/preFetch';
 import { preConnect } from './sideEffects/preConnect';
-import { IConfig } from './utils/IConfig';
+
+import { VGSCollectInstance } from './types/collect-api/form';
+import { LoadVGSCollectConfig } from './types/config';
+
+export * from './types/collect-api/form';
 
 // side effects
 Promise.resolve().then(() => {
@@ -19,7 +23,9 @@ Promise.resolve().then(() => {
   }
 });
 
-const loadVGSCollect = (config: IConfig = isRequired('config')) => {
+const loadVGSCollect = (
+  config: LoadVGSCollectConfig = isRequired('config')
+): Promise<VGSCollectInstance | null> => {
   const {
     vaultId = isRequired('vaultId'),
     environment = DEFAULT_CONFIG.environment,

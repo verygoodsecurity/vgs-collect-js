@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IConfig } from '../utils/IConfig';
+import { LoadVGSCollectConfig } from '../types/config';
 
 // Loading script from CloudFront CDN
 const MAIN_SCRIPT_DOMAIN = `https://js.verygoodvault.com`;
@@ -8,7 +8,7 @@ const BACKUP_SCRIPT_DOMAIN = `https://js3.verygoodvault.com`;
 const VGS_COLLECT_KEEPER = `https://vgs-collect-keeper.apps.verygood.systems`;
 const SESSION_ID = uuidv4();
 
-const DEFAULT_CONFIG: IConfig = {
+const DEFAULT_CONFIG: LoadVGSCollectConfig = {
   vaultId: '',
   environment: 'sandbox',
   version: 'canary',

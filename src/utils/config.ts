@@ -1,9 +1,9 @@
 import { DEFAULT_CONFIG } from '../constants/index';
-import { IConfig } from './IConfig';
+import { LoadVGSCollectConfig } from '../types/config';
 
 let config = DEFAULT_CONFIG;
 
-const setConfig = (params: IConfig) => {
+const setConfig = (params: LoadVGSCollectConfig) => {
   if (params) {
     config = { ...params };
   }
