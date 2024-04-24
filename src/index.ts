@@ -24,13 +24,21 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
     vaultId = isRequired('vaultId'),
     environment = DEFAULT_CONFIG.environment,
     version = DEFAULT_CONFIG.version,
+    integrity,
+    crossorigin,
   } = config;
 
   if (version === 'canary') {
     console.warn(ERROR_MESSAGE.CHANGE_VERSION);
   }
 
-  registerScriptLoading({ vaultId, environment, version });
+  registerScriptLoading({
+    vaultId,
+    environment,
+    version,
+    integrity,
+    crossorigin,
+  });
 
   return new Promise((resolve, reject) => {
     if (typeof window === 'undefined') {

@@ -24,10 +24,19 @@ const scriptExists = () => {
 };
 
 const appendScript = (): HTMLScriptElement => {
-  const { vaultId, environment, version } = getConfig();
+  const { vaultId, environment, version, integrity, crossorigin } = getConfig();
   const script = document.createElement('script');
 
   script.src = `${scriptURL}/vgs-collect/${version}/vgs-collect.js?sessionId=${SESSION_ID}&tenantId=${vaultId}&env=${environment}`;
+
+  if (integrity) {
+    script.integrity = integrity;
+  }
+
+  if (crossorigin) {
+    script.crossOrigin = crossorigin;
+  }
+
   appendElement(script);
 
   return script;
