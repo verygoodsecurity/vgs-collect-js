@@ -3,5 +3,5 @@ export interface IConfig {
   environment: string;
   version: string;
   integrity?: string;
-  crossorigin?: string;
+  crossorigin?: 'use-credentials' | 'anonymous' | '';
 }

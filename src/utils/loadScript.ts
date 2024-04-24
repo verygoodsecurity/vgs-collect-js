@@ -33,7 +33,7 @@ const appendScript = (): HTMLScriptElement => {
     script.integrity = integrity;
   }
 
-  if (crossorigin) {
+  if (typeof crossorigin === 'string') {
     script.crossOrigin = crossorigin;
   }
 
