@@ -39,6 +39,23 @@ describe('loadVGSCollect', () => {
     );
     expect(document.querySelectorAll(SCRIPT_URL).length).toBe(1);
   });
+
+  test('script wtih integrity and crossorigin attributes', () => {
+    const { loadVGSCollect } = require('../src/index');
+    loadVGSCollect({
+      vaultId: 'tnt12345352',
+      integrity:
+        'sha384-STGHtboAf18kBhVVUccsY3AN7RAXJdfyfAEZrhlGkYnKdPxsKIyI8ajYAom0X2zP',
+      crossorigin: 'anonymous',
+    });
+    const scriptElement = document.querySelector(
+      SCRIPT_URL
+    ) as HTMLScriptElement;
+    expect(scriptElement.crossOrigin).toBe('anonymous');
+    expect(scriptElement.integrity).toBe(
+      'sha384-STGHtboAf18kBhVVUccsY3AN7RAXJdfyfAEZrhlGkYnKdPxsKIyI8ajYAom0X2zP'
+    );
+  });
 });
 
 describe('check if script exists', () => {

@@ -11,6 +11,8 @@ const configSchema: IConfigSchema = {
     (typeof value === 'string' &&
       /^\d{1,2}\.\d{1,2}(\.\d{1,2})?$/.test(value) &&
       !value.startsWith('1.')),
+  integrity: value => (value ? typeof value === 'string' : true),
+  crossorigin: value => (value ? typeof value === 'string' : true),
 };
 
 const isRequired = (param: string) => {
