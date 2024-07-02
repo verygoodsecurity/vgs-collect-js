@@ -7,7 +7,7 @@ curl --request POST \
 --header "Accept: application/json" \
 --header "Content-Type: application/json" \
 --data "{
-  \"metricSourceId\": \"ari:cloud:compass:83673fa7-fd28-4f4a-9738-f584064570a7:component/db43f86d-85fe-42e1-954d-457f5a4082b8/1e475014-8422-4f5f-adb2-f37a725dc698\",
+  \"metricSourceId\": \"ari:cloud:compass:83673fa7-fd28-4f4a-9738-f584064570a7:metric-source/db43f86d-85fe-42e1-954d-457f5a4082b8/f6f374b0-00a5-474e-a0d3-560402b3dd89\",
   \"value\": $METRIC_VALUE,
   \"timestamp\": \"$(date -u +'%Y-%m-%dT%H:%M:%SZ')\"
 }"
