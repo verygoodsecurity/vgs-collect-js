@@ -13,12 +13,12 @@ links:
   - name: null
     type: REPOSITORY
     url: 'https://github.com/verygoodsecurity/vgs-collect-js'
-  - name: ShowJS Public Docs
+  - name: Public Docs
     type: DOCUMENT
-    url: 'https://www.verygoodsecurity.com/docs/vgs-show'
+    url: 'https://www.npmjs.com/package/@vgs/collect-js'
   - name: CircleCI
     type: PROJECT
-    url: 'https://app.circleci.com/pipelines/github/verygoodsecurity/show-js'
+    url: 'https://app.circleci.com/pipelines/github/verygoodsecurity/vgs-collect-js'
   - name: Jira
     type: PROJECT
     url: 'https://verygoodsecurity.atlassian.net/browse/DEVX'
