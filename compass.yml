@@ -1,0 +1,28 @@
+name: VGS Collect Loader
+id: 'ari:cloud:compass:83673fa7-fd28-4f4a-9738-f584064570a7:component/db43f86d-85fe-42e1-954d-457f5a4082b8/1e475014-8422-4f5f-adb2-f37a725dc698'
+description: |-
+  VGS Collect Loader
+  This package allows load Collect JS SDK script in a modern way via NPM. 
+configVersion: 1
+typeId: LIBRARY
+ownerId: 'ari:cloud:teams::team/61e34c25-3af2-4d60-bfed-39429d934c8b'
+fields:
+  lifecycle: Active
+  tier: 1
+links:
+  - name: null
+    type: REPOSITORY
+    url: 'https://github.com/verygoodsecurity/vgs-collect-js'
+  - name: ShowJS Public Docs
+    type: DOCUMENT
+    url: 'https://www.verygoodsecurity.com/docs/vgs-show'
+  - name: CircleCI
+    type: PROJECT
+    url: 'https://app.circleci.com/pipelines/github/verygoodsecurity/show-js'
+  - name: Jira
+    type: PROJECT
+    url: 'https://verygoodsecurity.atlassian.net/browse/DEVX'
+relationships: {}
+labels:
+  - 'language:javascript'
+customFields: null
