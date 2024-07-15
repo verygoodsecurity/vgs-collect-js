@@ -16,6 +16,9 @@ links:
   - name: Public Docs
     type: DOCUMENT
     url: 'https://www.npmjs.com/package/@vgs/collect-js'
+  - name: CircleCI
+    type: PROJECT
+    url: 'https://app.circleci.com/pipelines/github/verygoodsecurity/vgs-collect-js'
   - name: Jira
     type: PROJECT
     url: 'https://verygoodsecurity.atlassian.net/browse/DEVX'
