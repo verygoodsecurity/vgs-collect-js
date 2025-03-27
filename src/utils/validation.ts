@@ -5,7 +5,8 @@ type IConfigSchema = Record<string, (value: string) => boolean>;
 const configSchema: IConfigSchema = {
   vaultId: value => typeof value === 'string' && /^tnt.{8}$/.test(value),
   environment: value =>
-    typeof value === 'string' && /^(sandbox|live)((-eu)-\d{1})?$/.test(value),
+    typeof value === 'string' &&
+    /^(sandbox|live)((-eu|-ap)-\d{1})?$/.test(value),
   version: value =>
     value === 'canary' ||
     (typeof value === 'string' &&
