@@ -1,6 +1,6 @@
 {
   "name": "@vgs/collect-js",
-  "version": "0.6.3",
+  "version": "0.7.2",
   "description": "VGS Collect.js script loading module",
   "license": "MIT",
   "main": "dist/index.js",
