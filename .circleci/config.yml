@@ -30,7 +30,6 @@ init-npm: &init-npm
   run:
     name: Install dependencies
     command: |
-      npm i -g nx typescript
       npm ci
 
 jobs:
