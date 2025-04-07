@@ -30,8 +30,8 @@ init-npm: &init-npm
   run:
     name: Install dependencies
     command: |
-      sudo npm i -g nx typescript
-      sudo npm ci
+      npm i -g nx typescript
+      npm ci
 
 jobs:
   test:
