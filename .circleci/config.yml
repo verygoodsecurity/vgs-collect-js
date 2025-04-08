@@ -55,7 +55,7 @@ jobs:
       - run:
           name: Authenticate with NPM
           command: |
-            echo "//registry.npmjs.org/:_authToken=$NPM_VGS_PUBLISH_TOKEN" >> ~/vgs-collect-js/.npmrc
+            echo "//registry.npmjs.org/:_authToken=$NPM_PUBLISH_TOKEN_NEW" >> ~/vgs-collect-js/.npmrc
             npm ci
       - run:
           name: Publish package
