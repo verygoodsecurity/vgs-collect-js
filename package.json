@@ -34,7 +34,7 @@
   "module": "dist/collect-js.esm.js",
   "devDependencies": {
     "@babel/preset-env": "^7.21.4",
-    "@types/uuid": "^8.3.4",
+    "@types/uuid": "^11.0.0",
     "husky": "^4.3.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.5.0",
