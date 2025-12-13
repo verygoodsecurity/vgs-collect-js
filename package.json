@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "core-js": "^3.30.0",
-    "uuid": "^8.3.2"
+    "uuid": "^13.0.0"
   },
   "overrides": {
     "tsdx": {
