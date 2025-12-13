@@ -16,10 +16,10 @@ jobs:
       id-token: write 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '20'
           cache: 'npm'
@@ -39,7 +39,7 @@ jobs:
           echo "coverage_value=$METRIC_VALUE" >> $GITHUB_OUTPUT
 
       - name: Publish code coverage to compass
-        uses: verygood-ops/cicd-shared/.github/actions/compass@compass-action-v1.0.0
+        uses: verygood-ops/cicd-shared/.github/actions/compass@ed3476ed3685b1ac0fe081b4f72aff634407ea7e # compass-action-v1.0.0
         with:
           api_key: ${{ secrets.COMPASS_API_KEY }}
           metric_source_id: 'ari:cloud:compass:83673fa7-fd28-4f4a-9738-f584064570a7:metric-source/db43f86d-85fe-42e1-954d-457f5a4082b8/f6f374b0-00a5-474e-a0d3-560402b3dd89'
