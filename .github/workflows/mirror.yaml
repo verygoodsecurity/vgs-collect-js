@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - '**' # for testing purposes
     tags:
       - "*"
 
