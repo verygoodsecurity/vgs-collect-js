@@ -1,0 +1,14 @@
+name: Mirror to Public Repository
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+
+jobs:
+  mirror:
+    name: Mirror Repository
+    uses: verygood-ops/cicd-shared/.github/workflows/public-mirror.yaml@feature/mirror-repo
+    secrets: inherit
