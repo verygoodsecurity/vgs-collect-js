@@ -16,8 +16,6 @@
   </p>
 </p>
 
-[![CircleCI](https://circleci.com/gh/verygoodsecurity/vgs-collect-js.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
-
 * [Overview](#overview)
 * [Installation](#installation)
 * [How to use](#how-to-use)
