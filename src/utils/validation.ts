@@ -10,7 +10,7 @@ const configSchema: IConfigSchema = {
   version: value =>
     value === 'canary' ||
     (typeof value === 'string' &&
-      /^\d{1,2}\.\d{1,2}(\.\d{1,2})?$/.test(value) &&
+      /^\d{1,2}\.\d{1,2}(\.\d{1,2}(-beta\.\d{1,2})?)?$/.test(value) &&
       !value.startsWith('1.')),
   integrity: value => (value ? typeof value === 'string' : true),
   crossorigin: value => (value ? typeof value === 'string' : true),
