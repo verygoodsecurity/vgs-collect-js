@@ -36,6 +36,10 @@ const INVALID_VERSIONS = [
   '2',
   '2.224.24',
   '1.22.22',
+  '4.0-beta.7',
+  '4.0.0-beta',
+  '4.0.0-beta.x',
+  '4.0.0-rc.1',
   '',
   [],
   {},
@@ -43,6 +47,8 @@ const INVALID_VERSIONS = [
   true,
   null,
 ];
+
+const VALID_VERSIONS = ['2.0', '2.0.1', '4.0.0-beta.7', '12.34.56-beta.78'];
 
 describe('validateConfig()', () => {
   test.each(INVALID_VAULT_ID)('test with invalid value: %s', vaultId => {
@@ -65,6 +71,16 @@ describe('validateConfig()', () => {
         version,
       })
     ).toThrow('version is invalid');
+  });
+
+  test.each(VALID_VERSIONS)('test with valid value: %s', version => {
+    expect(() =>
+      validateConfig({
+        vaultId: 'tnt12345678',
+        environment: 'sandbox',
+        version,
+      })
+    ).not.toThrow();
   });
 });
 
