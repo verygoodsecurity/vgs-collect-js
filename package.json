@@ -3,6 +3,10 @@
   "version": "0.7.3",
   "description": "VGS Collect.js script loading module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verygoodsecurity/vgs-collect-js"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
