@@ -12,3 +12,4 @@ jobs:
     secrets:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
       SAST_SLACK_WORKFLOW_WEBHOOK: ${{ secrets.SAST_SLACK_WORKFLOW_WEBHOOK }}
+      DOCKERHUB_TOKEN: dckr_pat_xM4_CBKsO8eed2RdDKUHQicVKg8
