@@ -49,6 +49,7 @@ const INVALID_VERSIONS = [
 ];
 
 const VALID_VERSIONS = ['2.0', '2.0.1', '4.0.0-beta.7', '12.34.56-beta.78'];
+const INVALID_LOG_LEVELS = ['debug', 'error', '', [], {}, false, true, null];
 
 describe('validateConfig()', () => {
   test.each(INVALID_VAULT_ID)('test with invalid value: %s', vaultId => {
@@ -79,6 +80,28 @@ describe('validateConfig()', () => {
         vaultId: 'tnt12345678',
         environment: 'sandbox',
         version,
+      })
+    ).not.toThrow();
+  });
+
+  test.each(INVALID_LOG_LEVELS)('test with invalid logLevel: %s', logLevel => {
+    expect(() =>
+      validateConfig({
+        vaultId: 'tnt12345678',
+        environment: 'sandbox',
+        version: '2.0',
+        logLevel,
+      })
+    ).toThrow('logLevel is invalid');
+  });
+
+  test('accepts logLevel none', () => {
+    expect(() =>
+      validateConfig({
+        vaultId: 'tnt12345678',
+        environment: 'sandbox',
+        version: '2.0',
+        logLevel: 'none',
       })
     ).not.toThrow();
   });

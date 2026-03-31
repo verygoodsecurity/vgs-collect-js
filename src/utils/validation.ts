@@ -1,6 +1,6 @@
 import { ERROR_MESSAGE } from '../constants';
 
-type IConfigSchema = Record<string, (value: string) => boolean>;
+type IConfigSchema = Record<string, (value: unknown) => boolean>;
 
 const configSchema: IConfigSchema = {
   vaultId: value => typeof value === 'string' && /^tnt.{8}$/.test(value),
@@ -14,13 +14,14 @@ const configSchema: IConfigSchema = {
       !value.startsWith('1.')),
   integrity: value => (value ? typeof value === 'string' : true),
   crossorigin: value => (value ? typeof value === 'string' : true),
+  logLevel: value => (typeof value === 'undefined' ? true : value === 'none'),
 };
 
 const isRequired = (param: string) => {
   throw new Error(ERROR_MESSAGE.IS_REQUIRED(param));
 };
 
-const validate = <T extends IConfigSchema, U extends { [key: string]: string }>(
+const validate = <T extends IConfigSchema, U extends Record<string, unknown>>(
   schema: T,
   obj: U
 ): void => {

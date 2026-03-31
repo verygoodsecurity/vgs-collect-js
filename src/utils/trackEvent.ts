@@ -16,7 +16,17 @@ const registerScriptLoading = (params: IConfig) => {
 };
 
 const trackEvent = (event: any) => {
-  const { vaultId, environment, version } = getConfig();
+  const { vaultId, environment, version, logLevel } = getConfig();
+
+  if (
+    logLevel === 'none' ||
+    typeof window === 'undefined' ||
+    typeof window.btoa !== 'function' ||
+    typeof fetch !== 'function'
+  ) {
+    return;
+  }
+
   let payload = '';
 
   const data = {

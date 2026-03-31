@@ -19,6 +19,9 @@ describe('loadVGSCollect', () => {
         script.parentElement.removeChild(script);
       }
     }
+
+    delete (window as Partial<Window>).VGSCollect;
+    (global.fetch as jest.Mock).mockClear();
   });
 
   test("script doesn't exist before function call", () => {
@@ -55,6 +58,27 @@ describe('loadVGSCollect', () => {
     expect(scriptElement.integrity).toBe(
       'sha384-STGHtboAf18kBhVVUccsY3AN7RAXJdfyfAEZrhlGkYnKdPxsKIyI8ajYAom0X2zP'
     );
+  });
+
+  test('applies logLevel and suppresses loader analytics', async () => {
+    const logLevel = jest.fn();
+
+    window.VGSCollect = {
+      create: jest.fn(),
+      logLevel,
+    };
+
+    const { loadVGSCollect } = require('../src/index');
+
+    await expect(
+      loadVGSCollect({
+        vaultId: 'tnt12345352',
+        logLevel: 'none',
+      })
+    ).resolves.toBe(window.VGSCollect);
+
+    expect(logLevel).toHaveBeenCalledWith('none');
+    expect(global.fetch).not.toHaveBeenCalled();
   });
 });
 
