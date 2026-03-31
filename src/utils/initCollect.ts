@@ -7,7 +7,11 @@ const initCollect = (
   environment: string,
   logLevel?: 'none'
 ): void => {
-  if (logLevel && typeof window.VGSCollect.logLevel === 'function') {
+  if (
+    logLevel &&
+    window.VGSCollect &&
+    typeof window.VGSCollect.logLevel === 'function'
+  ) {
     window.VGSCollect.logLevel(logLevel);
   }
 
