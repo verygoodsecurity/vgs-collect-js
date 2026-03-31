@@ -107,6 +107,7 @@ Available properties:
 | version     | string | You can specify library version being loaded. Version must be >= 2.0. Please check our [Changelog](https://www.verygoodsecurity.com/docs/vgs-collect/js/changelog) for more details.  | `'canary'`  |
 | integrity   | string | Allows a browser to check the fetched script to ensure that the code is never loaded if the source has been manipulated.                                                              | not set     |
 | crossorigin | string | Defining how the element handles cross-origin requests.                                                                                                                               | not set     |
+| logLevel    | string | Proxies the Collect.js log level configuration. Set to `'none'` to disable Collect.js logs and suppress loader analytics `trackEvent` calls.                                         | not set     |
 
 
 ### .init(callback)

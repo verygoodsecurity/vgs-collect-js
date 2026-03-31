@@ -26,6 +26,7 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
     version = DEFAULT_CONFIG.version,
     integrity,
     crossorigin,
+    logLevel,
   } = config;
 
   if (version === 'canary') {
@@ -38,6 +39,7 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
     version,
     integrity,
     crossorigin,
+    logLevel,
   });
 
   return new Promise((resolve, reject) => {
@@ -47,13 +49,14 @@ const loadVGSCollect = (config: IConfig = isRequired('config')) => {
     }
 
     if (window.VGSCollect) {
-      initCollect(vaultId, environment);
+      initCollect(vaultId, environment, logLevel);
       resolve(window.VGSCollect);
+      return;
     }
 
     loadScript()
       .then(() => {
-        initCollect(vaultId, environment);
+        initCollect(vaultId, environment, logLevel);
         resolve(window.VGSCollect);
       })
       .catch(e => {
