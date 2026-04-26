@@ -46,7 +46,10 @@
   },
   "overrides": {
     "tsdx": {
-      "qs": "6.5.3"
+      "qs": "6.5.3",
+      "babel-plugin-polyfill-regenerator": "0.5.3",
+      "rollup": "2.80.0",
+      "micromatch": "4.0.8"
     }
   }
 }
