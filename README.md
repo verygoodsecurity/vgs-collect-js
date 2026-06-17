@@ -22,6 +22,7 @@
 * [Documentation](#documentation)
 * [Examples](#examples)
 * [Built With](#built-with)
+* [AI Agent Integration](#ai-agent-integration)
 * [Contact](#contact)
 
 ## Overview
@@ -138,6 +139,29 @@ We strongly recommend to add the CSP to your application. Content Security Polic
 
 * [Typescript](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
 * [tsdx template](https://github.com/formium/tsdx)
+
+## AI Agent Integration
+
+This repository ships a public AI skill at [`skills/vgs-collect-js-guide/SKILL.md`](./skills/vgs-collect-js-guide/SKILL.md) for AI agents integrating VGS Collect through vanilla JavaScript, `@vgs/collect-js`, or a direct Collect.js CDN script.
+
+Recommended: install the skill with `skills.sh`. This is the easiest way to give a compatible AI agent the repository-specific guidance it needs for non-React VGS Collect JavaScript integrations.
+
+The installed skill bundle includes loader-specific and direct CDN references and examples. React wrapper guidance for `@vgs/collect-js-react` is packaged separately from this repository skill.
+
+What the skill is useful for:
+
+* integrating VGS Collect through `loadVGSCollect` from `@vgs/collect-js`
+* loading the Collect core SDK from the public CDN when a direct script tag is the right integration path
+* creating secure fields with `VGSCollect.create(...)` or `collect.init(...)`
+* submitting, tokenizing, creating aliases, and configuring common VGS Collect form behavior
+* choosing public Collect core SDK versions without claiming an unverified latest version
+* preserving the secure iframe collection model and avoiding examples that place PAN, CVC, SSN, passwords, OAuth tokens, client secrets, production route IDs, or production CNAME details in browser code
+
+Install the skill with `skills.sh`:
+
+```bash
+npx skills add https://github.com/verygoodsecurity/vgs-collect-js --skill vgs-collect-js-guide
+```
 
 ## Contact
 

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>VGS Collect CDN Example</title>
+    <script src="https://js.verygoodvault.com/vgs-collect/<collect_version>/vgs-collect.js"></script>
+  </head>
+  <body>
+    <form id="payment-form">
+      <label>Name on card <span id="card-name"></span></label>
+      <label>Card number <span id="card-number"></span></label>
+      <label>Expiration date <span id="card-expiration"></span></label>
+      <label>CVC <span id="card-cvc"></span></label>
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      const form = VGSCollect.create('<vault_id>', 'sandbox', function (state) {
+        console.log(state);
+      });
+
+      form.field('#card-name', {
+        type: 'text',
+        name: 'card_name',
+        validations: ['required'],
+        placeholder: 'Name on card'
+      });
+
+      form.field('#card-number', {
+        type: 'card-number',
+        name: 'card_number',
+        validations: ['required', 'validCardNumber'],
+        placeholder: 'Card number'
+      });
+
+      form.field('#card-expiration', {
+        type: 'card-expiration-date',
+        name: 'card_expiration',
+        validations: ['required', 'validCardExpirationDate'],
+        yearLength: 2,
+        placeholder: 'MM/YY'
+      });
+
+      form.field('#card-cvc', {
+        type: 'card-security-code',
+        name: 'card_cvc',
+        validations: ['required', 'validCardSecurityCode'],
+        placeholder: 'CVC'
+      });
+
+      document.querySelector('#payment-form').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        try {
+          const result = await form.submit('/post', { serialization: 'formData' });
+          console.log(result.status, result.data);
+        } catch (errors) {
+          console.log(errors);
+        }
+      });
+    </script>
+  </body>
+</html>
