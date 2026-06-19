@@ -15,48 +15,105 @@
     </form>
 
     <script>
-      const form = VGSCollect.create('<vault_id>', 'sandbox', function (state) {
-        console.log(state);
-      });
+      (async function () {
+        const cmpConfiguration = {
+          cardAttributes: {
+            enable: true,
+            parameters: ['card_brand', 'card_type', 'product_name']
+          }
+        };
 
-      form.field('#card-name', {
-        type: 'text',
-        name: 'card_name',
-        validations: ['required'],
-        placeholder: 'Name on card'
-      });
+        async function getAccessToken() {
+          const response = await fetch('/api/access-token');
+          const data = await response.json();
 
-      form.field('#card-number', {
-        type: 'card-number',
-        name: 'card_number',
-        validations: ['required', 'validCardNumber'],
-        placeholder: 'Card number'
-      });
+          if (!response.ok || typeof data.access_token !== 'string') {
+            throw new Error(data.error_description || data.error || 'Failed to fetch access token');
+          }
 
-      form.field('#card-expiration', {
-        type: 'card-expiration-date',
-        name: 'card_expiration',
-        validations: ['required', 'validCardExpirationDate'],
-        yearLength: 2,
-        placeholder: 'MM/YY'
-      });
-
-      form.field('#card-cvc', {
-        type: 'card-security-code',
-        name: 'card_cvc',
-        validations: ['required', 'validCardSecurityCode'],
-        placeholder: 'CVC'
-      });
-
-      document.querySelector('#payment-form').addEventListener('submit', async function (event) {
-        event.preventDefault();
-        try {
-          const result = await form.submit('/post', { serialization: 'formData' });
-          console.log(result.status, result.data);
-        } catch (errors) {
-          console.log(errors);
+          return data.access_token;
         }
-      });
+
+        function handleFormState(state) {
+          void state;
+          // Map validity and error state to customer-safe UI; do not log sensitive field state.
+        }
+
+        function handleCreateCardSuccess(status, data) {
+          void status;
+          void data;
+          // Store card IDs or other non-sensitive response values needed by the app.
+        }
+
+        function handleCreateCardError(errors) {
+          void errors;
+          // Map validation/session errors to customer-safe UI messages.
+        }
+
+        const form = await VGSCollect.session({
+          vaultId: '<vault_id>',
+          env: 'sandbox',
+          formId: '<collect_form_id>',
+          configuration: cmpConfiguration,
+          stateCallback: handleFormState,
+          authHandler: getAccessToken,
+          onErrorCallback: handleCreateCardError
+        });
+
+        form.on('getCardAttributesSuccess', function (response) {
+          void response;
+          // Use card brand/type/product metadata for UI only; do not log sensitive input.
+        });
+
+        form.on('getCardAttributesError', function (errors) {
+          void errors;
+        });
+
+        form.cardholderNameField('#card-name', {
+          placeholder: 'Name on card'
+        });
+
+        form.cardNumberField('#card-number', {
+          validations: ['required', 'validCardNumber'],
+          placeholder: 'Card number'
+        });
+
+        form.cardExpirationDateField('#card-expiration', {
+          validations: ['required', 'validCardExpirationDate'],
+          yearLength: 2,
+          placeholder: 'MM/YY'
+        });
+
+        form.cardCVCField('#card-cvc', {
+          validations: ['required', 'validCardSecurityCode'],
+          placeholder: 'CVC'
+        });
+
+        document.querySelector('#payment-form').addEventListener('submit', async function (event) {
+          event.preventDefault();
+          try {
+            await form.createCard(
+              {
+                data: {
+                  cardholder: {
+                    address: {
+                      address1: '123 Main St',
+                      city: 'LA',
+                      region: 'CA',
+                      postal_code: '12345',
+                      country: 'USA'
+                    }
+                  }
+                }
+              },
+              handleCreateCardSuccess,
+              handleCreateCardError
+            );
+          } catch (errors) {
+            handleCreateCardError(errors);
+          }
+        });
+      })();
     </script>
   </body>
 </html>
