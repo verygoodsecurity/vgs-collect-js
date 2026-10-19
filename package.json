@@ -14,7 +14,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -38,7 +38,6 @@
   "module": "dist/collect-js.esm.js",
   "devDependencies": {
     "@babel/preset-env": "^7.21.4",
-    "@types/uuid": "^8.3.4",
     "husky": "^4.3.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.5.0",
@@ -46,7 +45,7 @@
   },
   "dependencies": {
     "core-js": "^3.30.0",
-    "uuid": "^8.3.2"
+    "uuid": "^11.1.1"
   },
   "overrides": {
     "@babel/preset-env": {
